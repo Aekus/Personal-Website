@@ -1,0 +1,215 @@
+#navigation_list {
+    list-style-type: none;
+}
+
+#about_me {
+    margin-right: 40px;
+}
+
+#about_me, #projects {
+    float: right;
+    padding: 10px;
+}
+
+#about_link, #projects_link {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color:black;
+    font-family:courier;
+    
+}
+
+#about_link:not(.active), #projects_link:not(.active) {
+    color:#cccccc;
+}
+
+#about_link:hover, #projects_link:hover {
+    color: black;
+}
+
+.active {
+    color:black;
+}
+
+.desc {
+    position:relative;
+    padding-top: 5%;
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    top: 0px;
+    bottom: 0px;
+}
+
+.subheading {
+    font-family: "Bookman Old Style";
+    font-size:24px;
+    font-weight:lighter;
+    margin-bottom: 5px;
+}
+
+.name {
+    margin-top:0px;
+    font-family: "Bookman Old Style";
+}
+
+#header {
+    height:100px;
+}
+
+#main {
+    margin-bottom: 50px;
+}
+
+#biography {
+    font-family: "Bookman Old Style";
+}
+
+#project_list {
+    font-family: "Bookman Old Style";
+    padding-left: 50px;
+    padding-right: 20%;
+}
+
+body {
+    text-align: center;  
+}
+
+#page {
+    display: inline-block;
+    text-align: initial;
+    width: 100%;
+    max-width: 800px;
+}
+
+#profile_pic {
+    width: 300px;
+}
+
+#list_of_projects {
+    list-style-type:circle;
+}
+
+.projectname {
+    text-decoration: none;
+    color:#cccccc;
+}
+
+.projectname:hover {
+    color:black;
+}
+
+#widgets {
+    display:inline-block;
+}
+
+#github_icon, #linkedin_icon {
+    width: 20px;
+}
+
+#linkedin_icon {
+    padding-right: 5px;
+}
+
+#github_icon {
+    padding-left: 5px;
+}
+
+.widget_link {
+    text-decoration: none;
+}
+
+.project_title {
+    font-family: "Bookman Old Style";
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+}
+
+.project_subheader {
+    font-family: "Bookman Old Style";
+    font-size: 18px;
+}
+
+.text {
+    font-family: "Bookman Old Style";
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.in-text_link {
+    text-decoration: none;
+    color:blue;
+}
+
+.in-text_link:hover {
+    color:cyan;
+}
+
+
+
+.project_image {
+    text-align: center;
+}
+
+#proj2_table {
+    width:700px;
+}
+
+#codyzeller, #rayallen, #lebronjames {
+    width:500px;
+}
+
+#proj2graph {
+    width:500px;
+}
+
+#choosefunction {
+    width:300px;
+}
+
+#power-law_distribution {
+    width:140px;
+}
+
+#powerLawIntegral {
+    width:160px;
+}
+
+#RiemannZeta {
+    width:80px;
+}
+
+#chosendistribution {
+    width:100px;
+}
+
+#graph1, #hist1, #hist2, #graph2, #inf_before, #inf_after, #statesofNodes, #hist3{
+    border:2px solid black;
+}
+
+#graph1 {
+    width:565px;
+}
+
+#graph2 {
+    max-width:565px;
+}
+
+#modified_pk {
+    width:200px;
+}
+
+#CDFproof {
+    width: 500px;
+}
+
+#inf_before, #inf_after {
+    width:380px;
+}
+
+#inf_after {
+    height:297px;
+}
