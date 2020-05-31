@@ -129,6 +129,7 @@ body {
 
 .project_subheader {
     font-family: "Bookman Old Style";
+    font-weight:100;
     font-size: 18px;
 }
 
@@ -186,7 +187,7 @@ body {
     width:100px;
 }
 
-#graph1, #hist1, #hist2, #graph2, #inf_before, #inf_after, #statesofNodes, #hist3{
+#graph1, #hist1, #hist2, #graph2, #inf_before, #inf_after, #statesofNodes, #hist3, #linearisolationrate{
     border:2px solid black;
 }
 
@@ -212,4 +213,8 @@ body {
 
 #inf_after {
     height:297px;
+}
+
+#piso {
+    width:150px;
 }
