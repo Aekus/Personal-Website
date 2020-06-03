@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
-<body>
+<body onload="document.body.classList.add('loaded');" class="fadein">
     <div id = "page">
     <section id="header">
     <div id="menu">
@@ -25,8 +25,9 @@
                 <li id="projects"><a href="projects.html" id="projects_link">Projects</a></li>
             </ul>
         </nav>
-    </div>
+    </div>  
     </section>
+    <hr> 
     <section id="main">
     <div class="desc">
         <div id="profile">

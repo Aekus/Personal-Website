@@ -1,3 +1,15 @@
+.fadein {
+    opacity: 0;
+    -moz-transition: opacity 1.5s;
+    -webkit-transition: opacity 1.5s;
+    -o-transition: opacity 1.5s;
+    transition: opacity 1.5s;
+}
+
+body.loaded .fadein {
+    opacity: 1;
+}
+
 #navigation_list {
     list-style-type: none;
 }
@@ -55,10 +67,11 @@
 }
 
 #header {
-    height:100px;
+    height:75px;
 }
 
 #main {
+    padding-top:20px;
     margin-bottom: 50px;
 }
 
@@ -69,7 +82,7 @@
 #project_list {
     font-family: "Bookman Old Style";
     padding-left: 50px;
-    padding-right: 20%;
+    padding-right: 10%;
 }
 
 body {
@@ -125,6 +138,7 @@ body {
     font-weight: 500;
     font-size: 18px;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .project_subheader {
@@ -217,4 +231,26 @@ body {
 
 #piso {
     width:150px;
+}
+
+.codelink {
+    text-align:right;
+}
+
+#github_link {
+    width:20px;
+}
+
+.icon {
+    text-align: center;
+}
+
+.project_table {
+    width:100%;
+    border-collapse: collapse;
+    margin-bottom: 5px;
+}
+
+.project_date {
+    text-align: right;
 }
