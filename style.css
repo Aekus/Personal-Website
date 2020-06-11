@@ -242,3 +242,32 @@ body {
 .project_date {
     text-align: right;
 }
+
+#game_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    text-align: center;
+}
+
+#chessboard {
+    width:60%;
+    display: inline-block;
+}
+
+#startbutton, #nextButton, #prevButton {
+    font-family: "Bookman Old Style";
+    border:1;
+    border-radius: 10px;
+    background-color: ghostwhite;
+    padding: 8px;   
+}
+
+#prevButton {
+    margin-left: 30px;
+}
+
+#startbutton, #nextButton {
+    margin-left:10px;
+}
