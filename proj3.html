@@ -36,7 +36,7 @@
         <div class="icon"><a href="https://github.com/Aekus/Virus-Modelling"><img src="pics/githubwidget.svg" id="github_link"/> </a> </div>
         <h2 class="project_subheader"> Introduction </h2>
         <p class="text">
-            In the past month or so, I've gotten into chess quite a bit on websites like <a href="https://www.chess.com/" class="in-text_link">Chess.com</a> and <a href="https://lichess.org/" class="in-text_link"> Lichess.org</a> Usually, after blundering for an entire game, I visit the analysis section to see where exactly I went wrong with the hope of learning from my mistakes. This rarely ever works, but the past few times I've wandered into the analysis section, something else has piqued my interest. Both <a href="https://www.chess.com/" class="in-text_link">Chess.com</a> and <a href="https://lichess.org/" class="in-text_link"> Lichess.org </a> use incredibly strong chess engines for their analysis (the former uses Stockfish 10 by default while the latter uses the newer Stockfish 11.) For some background, since 1995 when Deep Blue beat World Champion Garry Kasparov in a 6 game series, computers have been considered superior to even the greatest grandmasters. Realizing there was no hope for me as a chess player, I took inspiration from Kevin Durant and thought "if you can't beat them, might as well join them." So I took on the challenge of building my own chess engine. Evidently, there is no way I will reach the levels of Stockfish (due to both the mechanical constraints of running everything off of a 4-year-old Dell XPS and the shear difference in knowledge and experience). Still, I want to build something that I can be proud of and learn something along the way.  
+            In the past month or so, I've gotten into chess quite a bit on websites like <a href="https://www.chess.com/" class="in-text_link">Chess.com</a> and <a href="https://lichess.org/" class="in-text_link"> Lichess.org</a> Usually, after blundering for an entire game, I visit the analysis section to see where exactly I went wrong with the hope of learning from my mistakes. This rarely ever works, but the past few times I've wandered into the analysis section, something else has piqued my interest. Both <a href="https://www.chess.com/" class="in-text_link">Chess.com</a> and <a href="https://lichess.org/" class="in-text_link"> Lichess.org </a> use incredibly strong chess engines for their analysis (the former uses Stockfish 10 by default while the latter uses the newer Stockfish 11.) For some background, since 1995 when Deep Blue beat World Champion Garry Kasparov in a 6 game series, computers have been considered superior to even the greatest grandmasters. Realizing there was no hope for me as a chess player, I took inspiration from Kevin Durant and thought "if you can't beat them, might as well join them." So I took on the challenge of building my own chess engine. Evidently, there is no way I will reach the levels of Stockfish (due to both the mechanical constraints of running everything off of a 4-year-old Dell XPS and the shear difference in knowledge and experience). Still, I want to build something that I can be proud of and learn something along the way. I also intend on making this a work-in-progress. I'll keep refining my engine and posting updates here as I do. 
         </p>
         <h2 class="project_subheader"> Tools </h2>
         <p class="text">
@@ -68,13 +68,13 @@
         <div id="game_area">
         <div id="chessboard">
         </div>
-        <button id="prevButton" onclick="prevMove(pgn1)">
+        <button id="prevButton" onclick="prevMove(board1, pgn1)">
             <
         </button>
-        <button id="startbutton" onclick="playGame(pgn1)">
+        <button id="startbutton" onclick="playGame(board1, pgn1)">
             Play
         </button>
-        <button id="nextButton" onclick="nextMove(pgn1)">
+        <button id="nextButton" onclick="nextMove(board1, pgn1)">
             >
         </button>
         </div>
@@ -89,9 +89,77 @@
         <p class="text">
         Once iterative deepening is implemented, we can look to take advantage of it by implementing shallow move ordering. Begininning at depth = 1, we use minimax to evaluate each move for the current player. Normally, such information would go to waste as we only care about the best move, however, we can take advantage of this extra information by ordering the moves from best to worst for the next depth level. Once again, the moves are ordered according to their new evaluation and the process is repeated. The benefit of ordering moves has to do with how alpha-beta pruning works. alpha and beta converge faster when the better moves appear earlier, meaning that the number of branches that are pruned also increases. I tested out move ordering by counting the number of searched nodes when the moves were ordered and then the number when the ordering was reversed (worst to best) and found that the number of nodes searched with reverse ordering is more than double.
         </p>
-        <p class="project_subheader"> Quiescent Search </p>
+        <p class="project_subheader"> Quiescence Search </p>
         <p class="text">
-        Implementing iterative deepening and shallow move ordering doesn't change how positions are evaluated, it simply makes search faster. In chess, like many games, there is a horizon effect at play with limited searches. Since engines can only see to a certain depth, they will consider the best situation at that depth even if such a position is horrible just one ply further. Take, for instance, a simple example. Suppose our engine can only see until depth 1. Then, the best move might be Queen takes Bishop. In the engine's figurative mind, a bishop has been won, a significant gain from our current point of view. Suppose that the bishop is defended by a pawn, now such a move is disastrous as the opponent can easily play pawn takes queen and now the opponent is up instead. Thus, we have to have some sort of secondary search that explores nodes beyond our maximum depth according to 
+        Implementing iterative deepening and shallow move ordering doesn't change how positions are evaluated, it simply makes search faster. In chess, like many games, there is a horizon effect at play with limited searches. Since engines can only see to a certain depth, they will consider the best situation at that depth even if such a position is horrible just one ply further. Take, for instance, a simple example. Suppose our engine can only see until depth 1. Then, the best move might be Queen takes Bishop. In the engine's figurative mind, a bishop has been won, a significant gain from our current point of view. Suppose that the bishop is defended by a pawn, now such a move is disastrous as the opponent can easily play pawn takes queen and now the opponent is up instead. Thus, we have to have some sort of secondary search that explores nodes beyond our maximum depth. We define nodes at depth <i>d</i> as either stable or not. A stable node is one created by a non-capturing move while a non-stable node is one created by a capturing move. We want to explore all non-stable nodes until they reach a stable state, meaning we apply a secondary search (called quiescence search) to all positions produced by a capturing move. This secondary search is quite simple. For all non-stable leaf nodes, we continue our tree search by only exploring their capturing children until there are no more capturing moves, at which point we evaluate the board position according to our heuristic. Off course, quiescence search isn't perfect. It assumes that all unstable nodes exist one ply from the bottom of the minimax search tree and that an unstable node is created by a capturing move. We could design a more rigorous quiescence search that took into account checks, hanging pieces, forks, skewers, etc., but doing so would not be very valuable unless we already have a very strong engine, which we don't. With iterative deepening, quiescence search, and shallow move ordering implemented, let's see another game of our engine against itself.
+        </p>
+        <div id="game_area">
+        <div id="chessboard1">
+        </div>
+        <button id="prevButton" onclick="prevMove(board2, pgn2)">
+            <
+        </button>
+        <button id="startbutton" onclick="playGame(board2, pgn2)">
+            Play
+        </button>
+        <button id="nextButton" onclick="nextMove(board2, pgn2)">
+            >
+        </button>
+        </div>
+        <p class="text">
+            There is a bit of improvement from both sides, we see castling and the engine recognized a mate in two at the end. The game is still quite bad, however, and I hypothesize that the implentation of quiescence search didn't help but hurt our engine. While before we were searching to around depth 4 or 5 for most moves, with quiescence search our depth has decreased to on average 3 and occasionally 2 during open middlegame positions. I went ahead and counted the number of nodes searched in our minimax tree versus the number of nodes searched in our quiescence tree and found that the quiescence tree was accounting for over 90% of the nodes, meaning that most of our computational power was being spent on our secondary search and not our primary one, decreasing the depth of our primary search. I also found a bug in my minimax implementation of black (I was at times prematurely returning moves for the minimizing player) which led to worse play for black. 
+        </p>
+        <p class="project_subheader"> Quiescence Pruning </p>
+        <p class="text">
+        Just like we pruned the minimax tree, we can also prune the quiescence tree. Quiescence search is prone to combinatorial explosion when a mobile piece such as a queen infiltrates the other side and begins capturing every opponent piece, turn by turn. In reality such an event never occurs since the queen is quickly recaptured by an enemy piece. In order to mimic this idea, we store the value of a position and access that value at even number of plies later to see if the search should be continued or be pruned. The maximizing player would prune any subtrees where the value of the position was less than the previous evaluation. Likewise, the minimizing player would prune any subtrees where the value of the position is less than the previous evaluation. Every time the evaluation of a node betters from it's previous evaluation, we reassign the variable to the new evaluation. It might seem like we are missing many possible plays by pruning like this, and this is in fact true. Quiescence search is so many nodes deeper than our current position, however, that we can afford to be more aggressive with our pruning and our main goal should be to reduce horizon mistakes, which this method can achieve. In addition to this exchange evaluation, we can employ our regular alpha beta pruning to this tree.
+        </p>
+        <p class="project_subheader"> Transposition Tables </p>
+        <p class="text">
+        There is another efficiency improvement we can make. By storing previously evaluated nodes in a transposition table we can save our engine the work of having to evaluate the same position over and over. In addition to the position, we want to store the score, the depth of the previous search and the best move found. One of the benefits of iterative deepening is that the same position is often evaluated more than one time. When this is the case we look at the maximum depth at which this position was previously evaluated and if that depth exceeds or equals the current depth at which we are searching, we return the best move and score of the stored position. The reason we only do this when the stored depth is equal to or higher than our current depth is because depths lower than our current depth are nonoptimal and will reduce the quality of our search. Meanwhile, say we are at depth 4 of 5 and arrive at a position that was previously searched at depth 2 of 5. If we continue searching, the value of this position will be based on one ply depth, whereas if we used the stored evaluation, it will be based on 3-ply depth, yielding a better analysis. The way we implement such a structure is by using a hashtable hashed using a Zobrist key that gives a unique value for every possible position. The Zobrist key is particularly important because it is efficiently generated using bitboards, while other hashing functions might be slower and reduce the speed of the get() and put() methods. We can flush the transposition table after every move to ensure that it doesn't become too large and contain nodes that are no longer useful to us.
+        </p>
+        <p class="project_subheader">
+        Principal Variation Node Ordering
+        </p>
+        <p class="text">
+        Principal Variation nodes, PV-nodes for short, are nodes considered to be the best from previous searches in the iterative deepening framework. Say, for instance, that we complete a minimax search at depth 2. Then for every non-leaf node, we store the best move that we found. When iterative deepening advances to depth 3, we already have the best moves stored for the first two depths and we can order our move list for the first two depths by first checking that best move and then all the other moves. By checking what we believe to be the best move first, we hope to cause an earlier cutoff in our alpha-beta pruning. Fortunately, there is no need to implement a seperate structure to keep track of PV-nodes since we already have our transposition table. To recap, here is our ordering algorithm until now:
+        </p>
+        <ol>
+            <li class="text">
+                Check transposition table to see if there are any searches on the same position. If there are:
+                <ol>
+                    <li class="text">
+                        If the depth of the previous search is equal to or greater than the current search, return the move and value of the stored search
+                    </li>
+                    <li class="text">
+                        If the depth of the previous search is less than the current search, order the move list by first searching the stored move
+                    </li>
+                </ol>
+            </li>
+            <li class="text">
+                If this is the root node, order all moves using the shallow move ordering algorithm described earlier
+            </li>
+            <li class="text">
+                If this is a leaf node, first check all capturing moves using the quiescence search algorithm described above, then evaluate all non-capturing moves using our heuristic function 
+            </li>
+        </ol>
+        <p class="text">
+        With all this implemented, I tried another game. An engine playing itself is nice, but I wanted to benchmark my engine by playing a game against it myself. I'm playing with white.
+        </p>
+        <div id="game_area">
+        <div id="chessboard2">
+        </div>
+        <button id="prevButton" onclick="prevMove(board3, pgn7)">
+            <
+        </button>
+        <button id="startbutton" onclick="playGame(board3, pgn7)">
+            Play
+        </button>
+        <button id="nextButton" onclick="nextMove(board3, pgn7)">
+            >
+        </button>
+        </div>
+        <p class="text">
+        Although I won, the game was quite close and according to stockfish, black was ahead in the middlegame. At times, I felt quite forced and were it not for the knight sacrifice by black, I feel like black would have won. Since the first game on this page, there is significant improvement in the engine's performance. I kept track of the search depth throughout this game and found that the engine average a depth of 7, increasing to 10 in the late game. I believe there are two bottlenecks as of right now. First, openings. Since openings are quite theoretical, we can't expect our engine to be able to formulate opening lines off-the-cuff. What many engines do is create a database called an 'opening book' which hard-codes many openings into the engine. While this would surely improve performance, I want to focus on the algorithmic aspects of the engine and come back to the opening book if I have time. The second bottleneck is depth. In the middlegame, the branching factor is so high that the engine average a depth as low as 5. It is imperative that an engine is able to see further to create more threats and recognize enemy threats. Aside from increasing computational power, the only other way to increase depth is to decrease the branching factor. The best engines have a branching factor of less than 2, which seems insane given that the average chess position has over 30 legal moves. The way it achieves this is by aggressive pruning strategies. As of right now, we have a branching factor of around 8. If we achieve a branching factor of 2, at our current computational power, we will be able to reach an average depth of around 20, which is an amazing improvement. 
         </p>
     </section>
     </div>

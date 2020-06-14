@@ -5,9 +5,31 @@ var board1 = ChessBoard('chessboard', {
     sparePieces: false,
     onDragStart: onDragStart,
     onDrop: onDrop,
-    onSnapEnd: onSnapEnd
+    onSnapEnd: onSnapEnd,
+    showNotation: true
 })
 
+var board2 = ChessBoard('chessboard1', {
+    position: 'start',
+    draggable: false,
+    dropOffBoard: 'snapback',
+    sparePieces: false,
+    onDragStart: onDragStart,
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd,
+    showNotation: true
+})
+
+var board3 = ChessBoard('chessboard2', {
+    position: 'start',
+    draggable: false,
+    dropOffBoard: 'snapback',
+    sparePieces: false,
+    onDragStart: onDragStart,
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd,
+    showNotation: true
+})
 const chess = new Chess();
 const pgn1 = '1. Nf3 Nf6 2. Na3 Nc6 3. Nc4 b5 4. Nce5 Nxe5 5. Nxe5 Bb7 6. d4 Bd5 7. b3 d6 8. Bg5 dxe5 9. dxe5 Bxb3 10. Bxf6 gxf6 11. cxb3 fxe5 12. Qb1 Qd4 13. Qd1 Qb4+ 14. Qd2 Qxd2+ 15. Kxd2 h5 16. Ke1 Rd8 17. Rd1 Rxd1+ 18. Kxd1 Rh6 19. Ke1 Rc6 20. f3 Ra6 21. g4 Rxa2 22. Kf2 h4 23. Bg2 Ra3 24. b4 h3 25. Bxh3 Ra4 26. g5 Rxb4 27. g6 fxg6 28. Be6 Rd4 29. Ke1 Kd8 30. Rg1 Rd6 31. Bb3 Bh6 32. Rf1 Bd2+ 33. Kf2 Bc3 34. Kg2 e4 35. fxe4 Ra6 36. Rf8+ Kd7 37. Kh3 Rd6 38. Kg2 Bg7 39. Ra8 a5 40. Kh1 a4 41. Bd5 g5 42. e3 g4 43. Rg8 Be5 44. Ra8 c5 45. Ra7+ Ke8 46. Ra8+ Kd7 47. Rb8 Rxd5 48. Rb7+ Kc6 49. Rc7+ Kxc7 50. exd5 Kb8 51. e4 c4 52. Kg2 e6 53. dxe6 Bd6 54. Kg1 Ka8 55. Kg2 b4 56. Kg1 c3 57. e7 Bxe7 58. e5 c2 59. h3 g3 60. Kg2 Bh4 61. Kf3 c1=Q 62. e6 Qc8 63. Kg4 Bf6 64. Kxg3 Be5+ 65. Kg2 Qd8 66. e7 Qxe7 67. Kg1 Qb7 68. h4 Qc8 69. Kg2 b3 70. h5 b2 71. h6 b1=Q 72. h7 a3 73. Kf2 a2 74. Kg2 a1=Q 75. h8=N Qf1#'
 
@@ -17,29 +39,38 @@ const pgn3 = '1. Nf3 Nc6 2. Ng5 d5 3. Nc3 Nf6 4. e4 Nxe4 5. Ngxe4 dxe4 6. Nxe4 N
 
 const pgn4 = '1. e4 e5 2. Nf3 Nc6 3. Be2 Rb8 4. d3 Nf6 5. Be3 Ng4 6. Bg5 Bb4+ 7. c3 Be7 8. Bxe7 Nxe7 9. Nbd2 h5 10. d4 Nc6 11. Bc4 exd4 12. Nxd4 Nxd4 13. cxd4 Qf6 14. O-O Qxd4 15. Qc1 O-O 16. Bd5 g5 17. Qxc7 Qxd2 18. Qxb8 Qxb2 19. Rac1 Nxf2 20. Rxc8 Rxc8 21. Qxc8+ Kg7 22. Rxf2 Qa1+ 23. Rf1 Qd4+ 24. Rf2 f5 25. Qxd7+ Kh8 26. Qc8+ Kg7 27. Qxb7+ Kh6 28. Qc6+ Kh7 29. exf5 Qe5 30. Qg6+ Kh8 31. Qg8#'
 
+const pgn5 = '1. d4 Nc6 2. d5 Ne5 3. f4 Nc4 4. b3 Nd6 5. Nc3 Nf6 6. Nf3 c6 7. dxc6 dxc6 8. Be3 Bf5 9. Nd4 Bg6 10. Qd2 Nd5 11. Nxc6 Nxe3 12. Nxd8 Nxc2+ 13. Kd1 Nxa1 14. Nxb7 Nxb7 15. e4 Nd6 16. f5 Bh5+ 17. Be2 O-O-O 18. Bxh5 Nxf5 19. Nd5 Nd6 20. Qc1+ Kd7 21. Qc7+ Ke8 22. Qc6+ Rd7 23. e5 g6 24. exd6 f5 25. Nc7+ Kf7 26. Qxd7 Kg7 27. dxe7 Bxe7 28. Qxe7+ Kh6 29. Ne6 Nc2 30. Qg5#'
+
+const pgn6 = '1. e4 Nf6 2. d3 e5 3. Nf3 Nc6 4. Bg5 h6 5. Bh4 g5 6. Bg3 Bd6 7. c3 g4 8. Nh4 Nh5 9. Nf5 Nxg3 10. hxg3 Bc5 11. Rxh6 Rxh6 12. Nxh6 Qg5 13. Nf5 d5 14. Nd2 Kd8 15. Ne3 dxe4 16. dxe4 Bxe3 17. fxe3 Qxe3+ 18. Be2 Bd7 19. Qb3 Qxg3+ 20. Kf1 Qf4+ 21. Ke1 Qg3+ 22. Kf1 Qf4+ 23. Ke1 Qg3+ 24. Kf1 Qf4+'
+
+const pgn7 = '1. e4 Nf6 2. d3 e5 3. Nc3 Bc5 4. Bg5 O-O 5. Nf3 h6 6. Bh4 Nc6 7. Nd5 g5 8. Nxf6+ Qxf6 9. Bg3 h5 10. h4 g4 11. Ng5 b5 12. c3 b4 13. Rc1 d5 14. exd5 Ne7 15. Ne4 Qb6 16. c4 Bd4 17. b3 Nf5 18. Bh2 Bxf2+ 19. Nxf2 Qe3+ 20. Be2 Nxh4 21. O-O a5 22. g3 Nf5 23. Re1 Nxg3 24. Bxg4 Qg5 25. Bxg3 Bxg4 26. Ne4 Qe7 27. Qd2 f5 28. Nf2 Rae8 29. Rxe5 Qd6 30. Qg5+ Kh7 31. Kg2 Be2 32. Qe3 Rxe5 33. Bxe5 Qg6+ 34. Kh2 Rg8 35. Qh3 Qg5 36. Re1 Kh6 37. Bxc7 Qd2 38. Rg1 Rxg1 39. Kxg1 Qg5+ 40. Kh2 Kg6 41. d6 Bg4 42. Nxg4 hxg4 43. Qg3 Qd2+ 44. Kg1 Kh5 45. Qh2+ Qxh2+ 46. Kxh2 f4 47. d7 g3+ 48. Kh3 a4 49. d8=Q g2 50. Qh4+ Kg6 51. Kxg2 f3+ 52. Kxf3 axb3 53. axb3 Kg7 54. Ke4 Kg6 55. Ke5 Kf7 56. Qf6+ Kg8 57. Qe7 Kh8 58. Kf6 Kg8 59. Qg7#'
+
 var playgame;
 var allmoves;
 var currmove = 0;
 var loaded = false;
+var active_pgn;
 
-function loadGame(pgn) {
+function loadGame(board, pgn) {
+    active_pgn = pgn;
     clearInterval(playgame);
-    chess.load_pgn(pgn)
+    chess.load_pgn(pgn);
+    currmove = 0;
     allmoves = chess.history();
     for (var i = 0; i < 250; i++) {
         chess.undo();
     }
-    board1.position(chess.fen())
+    board.position(chess.fen())
 }
 
-function playGame(pgn) {
-    if (!loaded) {
-        loadGame(pgn);
+function playGame(board, pgn) {
+    if (!loaded || pgn.localeCompare(active_pgn) != 0) {
+        loadGame(board, pgn);
         loaded = true;
     }
     playgame = setInterval(function() {
         chess.move(allmoves[currmove]);
-        board1.position(chess.fen());
+        board.position(chess.fen());
         currmove++;
         if (currmove >= allmoves.length) {
             clearInterval(playgame);
@@ -47,28 +78,28 @@ function playGame(pgn) {
     }, 1000)
 }
 
-function nextMove(pgn) {
-    if (!loaded) {
-        loadGame(pgn);
+function nextMove(board, pgn) {
+    if (!loaded || pgn.localeCompare(active_pgn) != 0) {
+        loadGame(board, pgn);
         loaded = true;
     }
     clearInterval(playgame);
     if (currmove < allmoves.length) {
         chess.move(allmoves[currmove]);
-        board1.position(chess.fen());
+        board.position(chess.fen());
         currmove++;
     }
 }
 
-function prevMove(pgn) {
-    if (!loaded) {
-        loadGame(pgn);
+function prevMove(board, pgn) {
+    if (!loaded || pgn.localeCompare(active_pgn) != 0) {
+        loadGame(board, pgn);
         loaded = true;
     }
     clearInterval(playgame);
     if (currmove > 0) {
         chess.undo();
-        board1.position(chess.fen());
+        board.position(chess.fen());
         currmove--;
     }
 }
