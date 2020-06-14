@@ -271,3 +271,7 @@ body {
 #startbutton, #nextButton {
     margin-left:10px;
 }
+
+.sublist {
+    list-style: lower-alpha;
+}
