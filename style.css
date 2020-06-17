@@ -251,7 +251,7 @@ body {
     text-align: center;
 }
 
-#chessboard, #chessboard1, #chessboard2 {
+#chessboard, #chessboard1, #chessboard2, #chessboard3 {
     width:60%;
     display: inline-block;
 }

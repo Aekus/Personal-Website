@@ -30,6 +30,18 @@ var board3 = ChessBoard('chessboard2', {
     onSnapEnd: onSnapEnd,
     showNotation: true
 })
+
+var board4 = ChessBoard('chessboard3', {
+    position: 'start',
+    draggable: false,
+    dropOffBoard: 'snapback',
+    sparePieces: false,
+    onDragStart: onDragStart,
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd,
+    showNotation: true
+})
+
 const chess = new Chess();
 const pgn1 = '1. Nf3 Nf6 2. Na3 Nc6 3. Nc4 b5 4. Nce5 Nxe5 5. Nxe5 Bb7 6. d4 Bd5 7. b3 d6 8. Bg5 dxe5 9. dxe5 Bxb3 10. Bxf6 gxf6 11. cxb3 fxe5 12. Qb1 Qd4 13. Qd1 Qb4+ 14. Qd2 Qxd2+ 15. Kxd2 h5 16. Ke1 Rd8 17. Rd1 Rxd1+ 18. Kxd1 Rh6 19. Ke1 Rc6 20. f3 Ra6 21. g4 Rxa2 22. Kf2 h4 23. Bg2 Ra3 24. b4 h3 25. Bxh3 Ra4 26. g5 Rxb4 27. g6 fxg6 28. Be6 Rd4 29. Ke1 Kd8 30. Rg1 Rd6 31. Bb3 Bh6 32. Rf1 Bd2+ 33. Kf2 Bc3 34. Kg2 e4 35. fxe4 Ra6 36. Rf8+ Kd7 37. Kh3 Rd6 38. Kg2 Bg7 39. Ra8 a5 40. Kh1 a4 41. Bd5 g5 42. e3 g4 43. Rg8 Be5 44. Ra8 c5 45. Ra7+ Ke8 46. Ra8+ Kd7 47. Rb8 Rxd5 48. Rb7+ Kc6 49. Rc7+ Kxc7 50. exd5 Kb8 51. e4 c4 52. Kg2 e6 53. dxe6 Bd6 54. Kg1 Ka8 55. Kg2 b4 56. Kg1 c3 57. e7 Bxe7 58. e5 c2 59. h3 g3 60. Kg2 Bh4 61. Kf3 c1=Q 62. e6 Qc8 63. Kg4 Bf6 64. Kxg3 Be5+ 65. Kg2 Qd8 66. e7 Qxe7 67. Kg1 Qb7 68. h4 Qc8 69. Kg2 b3 70. h5 b2 71. h6 b1=Q 72. h7 a3 73. Kf2 a2 74. Kg2 a1=Q 75. h8=N Qf1#'
 
@@ -43,7 +55,9 @@ const pgn5 = '1. d4 Nc6 2. d5 Ne5 3. f4 Nc4 4. b3 Nd6 5. Nc3 Nf6 6. Nf3 c6 7. dx
 
 const pgn6 = '1. e4 Nf6 2. d3 e5 3. Nf3 Nc6 4. Bg5 h6 5. Bh4 g5 6. Bg3 Bd6 7. c3 g4 8. Nh4 Nh5 9. Nf5 Nxg3 10. hxg3 Bc5 11. Rxh6 Rxh6 12. Nxh6 Qg5 13. Nf5 d5 14. Nd2 Kd8 15. Ne3 dxe4 16. dxe4 Bxe3 17. fxe3 Qxe3+ 18. Be2 Bd7 19. Qb3 Qxg3+ 20. Kf1 Qf4+ 21. Ke1 Qg3+ 22. Kf1 Qf4+ 23. Ke1 Qg3+ 24. Kf1 Qf4+'
 
-const pgn7 = '1. e4 Nf6 2. d3 e5 3. Nc3 Bc5 4. Bg5 O-O 5. Nf3 h6 6. Bh4 Nc6 7. Nd5 g5 8. Nxf6+ Qxf6 9. Bg3 h5 10. h4 g4 11. Ng5 b5 12. c3 b4 13. Rc1 d5 14. exd5 Ne7 15. Ne4 Qb6 16. c4 Bd4 17. b3 Nf5 18. Bh2 Bxf2+ 19. Nxf2 Qe3+ 20. Be2 Nxh4 21. O-O a5 22. g3 Nf5 23. Re1 Nxg3 24. Bxg4 Qg5 25. Bxg3 Bxg4 26. Ne4 Qe7 27. Qd2 f5 28. Nf2 Rae8 29. Rxe5 Qd6 30. Qg5+ Kh7 31. Kg2 Be2 32. Qe3 Rxe5 33. Bxe5 Qg6+ 34. Kh2 Rg8 35. Qh3 Qg5 36. Re1 Kh6 37. Bxc7 Qd2 38. Rg1 Rxg1 39. Kxg1 Qg5+ 40. Kh2 Kg6 41. d6 Bg4 42. Nxg4 hxg4 43. Qg3 Qd2+ 44. Kg1 Kh5 45. Qh2+ Qxh2+ 46. Kxh2 f4 47. d7 g3+ 48. Kh3 a4 49. d8=Q g2 50. Qh4+ Kg6 51. Kxg2 f3+ 52. Kxf3 axb3 53. axb3 Kg7 54. Ke4 Kg6 55. Ke5 Kf7 56. Qf6+ Kg8 57. Qe7 Kh8 58. Kf6 Kg8 59. Qg7#'
+const pgn7 = '1. Nf3 e6 2. e4 Nc6 3. Nc3 Bd6 4. d4 f6 5. d5 exd5 6. exd5 Ne5 7. Bb5 a6 8. Be2 Ne7 9. Nxe5 fxe5 10. Ne4 Nf5 11. Nxd6+ cxd6 12. O-O Nd4 13. Bd3 Qe7 14. c3 Nb5 15. Be4 Qh4 16. f4 g5 17. a4 Nc7 18. g3 Qh3 19. fxg5 Rf8 20. Rxf8+ Kxf8 21. Qf3+ Kg8 22. Kh1 b5 23. Kg1 Bb7 24. axb5 axb5 25. Rxa8+ Bxa8 26. Be3 Bb7 27. Bb6 Nxd5 28. Bxd5+ Bxd5 29. Qxd5+ Qe6 30. Qxb5 d5 31. Bc5 Kf7 32. Qf1+ Kg7 33. Kg2 Qc6 34. Qf8+ Kg6 35. Qg8+ Kf5 36. Qf7+ Qf6 37. Qxf6+ Kg4 38. h3+ Kh5 39. Qh6#'
+
+const pgn8 = '1. e4 Nf6 2. e5 Nd5 3. d4 e6 4. Nf3 a6 5. Bd3 h6 6. Nbd2 Nf4 7. Be4 d5 8. Bd3 Nxg2+ 9. Kf1 Nf4 10. Nb3 Nxd3 11. Qxd3 Be7 12. Rg1 Kf8 13. Nc5 b6 14. Na4 c5 15. b3 Bd7 16. Ba3 Bb5 17. c4 dxc4 18. Qe4 cxb3+ 19. Kg2 Bc6 20. d5 exd5 21. Qg4 Bd7 22. Qf4 g5 23. Qe3 bxa2 24. Nb2 g4 25. Nd2 d4 26. Qg3 Bh4 27. Qb3 Bc6+ 28. Kf1 Qg5 29. Rd1 Qf5 30. Nd3 Nd7 31. Re1 Nxe5 32. Nxe5 Qxf2#'
 
 var playgame;
 var allmoves;

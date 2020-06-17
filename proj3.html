@@ -33,7 +33,7 @@
         <hr>
     <section id="main">
     <h1 class="project_title"> Creating a Chess Engine </h1>
-        <div class="icon"><a href="https://github.com/Aekus/Virus-Modelling"><img src="pics/githubwidget.svg" id="github_link"/> </a> </div>
+        <div class="icon"><a href="https://github.com/Aekus/Chess_Engine"><img src="pics/githubwidget.svg" id="github_link"/> </a> </div>
         <h2 class="project_subheader"> Introduction </h2>
         <p class="text">
             In the past month or so, I've gotten into chess quite a bit on websites like <a href="https://www.chess.com/" class="in-text_link">Chess.com</a> and <a href="https://lichess.org/" class="in-text_link"> Lichess.org</a> Usually, after blundering for an entire game, I visit the analysis section to see where exactly I went wrong with the hope of learning from my mistakes. This rarely ever works, but the past few times I've wandered into the analysis section, something else has piqued my interest. Both <a href="https://www.chess.com/" class="in-text_link">Chess.com</a> and <a href="https://lichess.org/" class="in-text_link"> Lichess.org </a> use incredibly strong chess engines for their analysis (the former uses Stockfish 10 by default while the latter uses the newer Stockfish 11.) For some background, since 1995 when Deep Blue beat World Champion Garry Kasparov in a 6 game series, computers have been considered superior to even the greatest grandmasters. Realizing there was no hope for me as a chess player, I took inspiration from Kevin Durant and thought "if you can't beat them, might as well join them." So I took on the challenge of building my own chess engine. Evidently, there is no way I will reach the levels of Stockfish (due to both the mechanical constraints of running everything off of a 4-year-old Dell XPS and the shear difference in knowledge and experience). Still, I want to build something that I can be proud of and learn something along the way. I also intend on making this a work-in-progress. I'll keep refining my engine and posting updates here as I do. 
@@ -145,7 +145,7 @@
             </li>
         </ol>
         <p class="text">
-        With all this implemented, I tried another game. An engine playing itself is nice, but I wanted to benchmark my engine by playing a game against it myself. I'm playing with white.
+        With all this implemented, I tried another game of my engine playing itself.
         </p>
         <div id="game_area">
         <div id="chessboard2">
@@ -161,7 +161,23 @@
         </button>
         </div>
         <p class="text">
-        Although I won, the game was quite close and according to stockfish, black was ahead in the middlegame. At times, I felt quite forced and were it not for the knight sacrifice by black, I feel like black would have won. Since the first game on this page, there is significant improvement in the engine's performance. I kept track of the search depth throughout this game and found that the engine average a depth of 7, increasing to 10 in the late game. I believe there are two bottlenecks as of right now. First, openings. Since openings are quite theoretical, we can't expect our engine to be able to formulate opening lines off-the-cuff. What many engines do is create a database called an 'opening book' which hard-codes many openings into the engine. While this would surely improve performance, I want to focus on the algorithmic aspects of the engine and come back to the opening book if I have time. The second bottleneck is depth. In the middlegame, the branching factor is so high that the engine average a depth as low as 5. It is imperative that an engine is able to see further to create more threats and recognize enemy threats. Aside from increasing computational power, the only other way to increase depth is to decrease the branching factor. The best engines have a branching factor of less than 2, which seems insane given that the average chess position has over 30 legal moves. The way it achieves this is by aggressive pruning strategies. As of right now, we have a branching factor of around 8. If we achieve a branching factor of 2, at our current computational power, we will be able to reach an average depth of around 20, which is an amazing improvement. 
+        The game starts with the nimzowitch defense being played. Black quickly moves off-book in move 3 with Bd6, but we see a fairly normal development from both sides. To my surprise, there are no blunders in this game, and around half of the moves played in the middle and late game were Stockfish's best move recommendations. The material on the board was completely even until move 18, which was a pleasant sight. To my bigger surprise, black makes a seemingly bad move on move 27, sacrificing a knight when the minor pieces are even for both sides. Surprisingly, this is stockfish's recommended move and if black had instead moved the knight to a different square white could trap black's queen with Bf5. The game finishes off quite nicely with the engine recognizing a forced mate in 6, which I was not expecting since the engine was operating at a 6-ply depth. Engine versus Engine is one thing, but I wanted to benchmark my engine my playing against it myself. I play as white here.
+        </p>
+        <div id="game_area">
+        <div id="chessboard3">
+        </div>
+        <button id="prevButton" onclick="prevMove(board4, pgn8)">
+            <
+        </button>
+        <button id="startbutton" onclick="playGame(board4, pgn8)">
+            Play
+        </button>
+        <button id="nextButton" onclick="nextMove(board4, pgn8)">
+            >
+        </button>
+        </div>
+        <p class="text">
+        I played that game pretty poorly, but still I was not expecting to get crushed so badly. The engine quickly developed a massive pawn advantage that it used to force my pieces into bad positions and mated me in 32 moves. Granted, I'm a pretty bad chess player but I'm still impressed that my engine defeated me and did so in such a fashion. Since the first game on this page, there is significant improvement in the engine's performance. I kept track of the search depth throughout this game and found that the engine average a depth of 7, compared to depth 3 I was accustomed to seeing in earlier iterations. I believe there are two bottlenecks as of right now. First, openings. Since openings are quite theoretical, we can't expect our engine to be able to formulate opening lines off-the-cuff. What many engines do is create a database or neural net called an 'opening book' which deals with what openings to choose. While this would surely improve performance, I want to focus on the algorithmic aspects of the engine and come back to the opening book if I have time. The second bottleneck is depth. In the middlegame, the branching factor is so high that the engine average a depth as low as 5. It is imperative that an engine is able to see further to create more threats and recognize enemy threats. Aside from increasing computational power, the only other way to increase depth is to decrease the branching factor. The best engines have a branching factor of less than 2, which seems insane given that the average chess position has over 30 legal moves. The way it achieves this is by aggressive pruning strategies. As of right now, we have a branching factor of around 8. If we achieve a branching factor of 2, at our current computational power, we will be able to reach an average depth of around 20, which is an amazing improvement. 
         </p>
     </section>
     </div>
