@@ -82,6 +82,7 @@ function playGame(board, pgn) {
         loadGame(board, pgn);
         loaded = true;
     }
+    clearInterval(playgame);
     playgame = setInterval(function() {
         chess.move(allmoves[currmove]);
         board.position(chess.fen());
@@ -129,7 +130,7 @@ function onDragStart (source, piece, position, orientation) {
 
 function makeMove () {
   if (chess.moves.length === 0) return
-  
+
 }
 
 function minimax(depth) {
@@ -274,5 +275,3 @@ function onDrop (source, target) {
 function onSnapEnd () {
   board1.position(chess.fen())
 }
-
-
