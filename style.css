@@ -74,6 +74,7 @@
 
 #biography {
   font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  line-height: 1.5;
 }
 
 #project_list {
