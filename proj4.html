@@ -9,7 +9,7 @@
 
   gtag('config', 'UA-167856456-1');
 </script>
-<title> Supervised Learning to Predict NBA Free Throw Accuracy </title>
+<title> Using Generative Adversarial Networks to Imitate My Handwriting </title>
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -28,7 +28,7 @@
         <hr>
     <section id="main">
       <p class="project_title"> Using Generative Adversarial Networks to Imitate My Handwriting </p>
-      <div class="icon"><a href=https://github.com/Aekus/NBAFreeThrowAnalysis><img src="pics/githubwidget.svg" id="github_link"/> </a> </div>
+      <div class="icon"><a href=https://github.com/Aekus/Handwriting_GAN><img src="pics/githubwidget.svg" id="github_link"/> </a> </div>
       <p class="project_subheader"> Introduction </p>
       <p class="text"> I wanted to learn more about neural networks recently, and so I was reading up to see what was new in the field. I was familiar with the classical applications of neural networks: image classification, natural language processing, game AIs, and so forth. While the specific type and implementation varied, the premise for the most part was a black box that is fed some input in the form of raw data and would choose from a corresponding set of possible outputs the most likely one based on some internal parameters. Granted, this definition does not do justice to the complexity involved in image classification or natural language processing, but this was my mental image of neural networks at the time. </p>
       <p class="text">
@@ -349,10 +349,10 @@
       </tr>
     </table>
     <p class="text">
-      This time, we didn't have the same 'noisy' effect present in the last image. I think this is partly due to the slowed learning rate. I find then when the learning rate is higher, the generator loss is generally increases at a faster rate, signifying that the discriminator is stronger than the generator and it will not be able to 'fool' the discriminator so it continues producing random noise. The batch normalization seems to cause this as well, so it order to balance both out, I decreased the learning rate and it seemed to work quite well. One thing to note that is quite interesting is what figures are being drawn. We see a lot of 'F's, 'l's, 'i's, 't's, and 'T's. This makes intuitive sense since these are some of the simplest alphabets to draw and also, by extension, the simplest alphabets to imitate. But it also has a drawback, since our model's output diversity does not match the input diversity. This problem is known as 'mode collapse' and happens when the generator selects for the easiest outputs.
+      This time, we didn't have the same 'noisy' effect present in the last image. I think this is partly due to the slowed learning rate. I find that when the learning rate is higher, the generator loss generally increases at a faster rate, signifying that the discriminator is stronger than the generator. When the generator is unable to 'fool' the discriminator, it continues to produce white noise. The batch normalization seems to cause this as well, so it order to balance both out, I decreased the learning rate and it seemed to work quite well. One thing to note that is quite interesting is what figures are being drawn. We see a lot of 'F's, 'l's, 'i's, 't's, and 'T's. This makes intuitive sense since these are some of the simplest alphabets to draw and also, by extension, the simplest alphabets to imitate. But it also has a drawback, since our model's output diversity does not match the input diversity. This problem is known as 'mode collapse' and happens when the generator selects for the easiest outputs.
     </p>
     <p class="text">
-      I'm gonna end this article here for now, but I'll be back soon to add changes.
+      I'm going to end this article here for now, but I'll be back soon to add changes.
     </p>
   </section>
   </div>
