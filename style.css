@@ -11,29 +11,24 @@
     margin-right: 40px;
 }
 
-#about_me, #projects {
+#about_me, #projects, #teaching {
     float: right;
     padding: 10px;
 }
 
-#about_link, #projects_link {
+#about_link, #projects_link, #teaching_link {
     display: block;
     padding: 10px;
     text-decoration: none;
     color:black;
     font-family:courier;
-<<<<<<< HEAD
-
-=======
-
->>>>>>> added updates
 }
 
-#about_link:not(.active), #projects_link:not(.active) {
+#about_link:not(.active), #projects_link:not(.active), #teaching_link:not(.active) {
     color:#cccccc;
 }
 
-#about_link:hover, #projects_link:hover {
+#about_link:hover, #projects_link:hover, #teaching_link:hover {
     color: black;
 }
 
@@ -103,8 +98,9 @@ body {
 }
 
 .projectname {
-    text-decoration: none;
-    color:#cccccc;
+    font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    text-decoration: underline;
+    color:#aaaaaa;
 }
 
 .projectname:hover {
@@ -326,4 +322,24 @@ body {
 
 .table_caption {
   font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.course_title {
+  text-align: left;
+  margin-left: 5%;
+}
+
+.course_description {
+  text-align: left;
+  margin-left: 10%;
+}
+
+.course_title_text {
+  font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 18px;
+}
+
+.topic_name {
+  font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-weight: 700;
 }
