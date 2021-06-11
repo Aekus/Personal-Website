@@ -5,30 +5,32 @@
 
 #navigation_list {
     list-style-type: none;
+    clear:both;
 }
 
 #about_me {
     margin-right: 40px;
 }
 
-#about_me, #projects, #teaching {
+#about_me, #projects, #teaching, #blog {
     float: right;
     padding: 10px;
 }
 
-#about_link, #projects_link, #teaching_link {
+#about_link, #projects_link, #teaching_link, #blog_link {
     display: block;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-decoration: none;
     color:black;
     font-family:courier;
 }
 
-#about_link:not(.active), #projects_link:not(.active), #teaching_link:not(.active) {
+#about_link:not(.active), #projects_link:not(.active), #teaching_link:not(.active), #blog_link:not(.active) {
     color:#cccccc;
 }
 
-#about_link:hover, #projects_link:hover, #teaching_link:hover {
+#about_link:hover, #projects_link:hover, #teaching_link:hover, #blog_link:hover {
     color: black;
 }
 
@@ -65,6 +67,8 @@
 #main {
     padding-top:20px;
     margin-bottom: 50px;
+    margin-left: 5%;
+    margin-right: 5%
 }
 
 #biography {
@@ -74,8 +78,6 @@
 
 #project_list {
   font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    padding-left: 50px;
-    padding-right: 10%;
 }
 
 body {
@@ -127,7 +129,7 @@ body {
     text-decoration: none;
 }
 
-.project_title {
+.project_title, .blog_title {
   font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-weight: 500;
     font-size: 18px;
@@ -324,22 +326,25 @@ body {
   font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
-.course_title {
+.course_title, .blog_page_title {
   text-align: left;
-  margin-left: 5%;
+  font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.course_title_text {
+  font-size: 18px;
 }
 
 .course_description {
   text-align: left;
-  margin-left: 10%;
-}
-
-.course_title_text {
-  font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  font-size: 18px;
+  margin-left: 5%;
 }
 
 .topic_name {
   font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
   font-weight: 700;
+}
+
+#definition {
+  font-weight:lighter;
 }
