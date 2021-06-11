@@ -138,10 +138,23 @@
       And the maximal value of \(R_M(x)\) is
       \[\begin{aligned}
       \max_{x} R_M(x) &= R_M(u_1) \\
-      &= \frac{u_1Mu_1}{u_1^Tu_1} \\
+      &= \frac{u_1^TMu_1}{u_1^Tu_1} \\
       &= \lambda_1 \frac{u_1^Tu_1}{u_1^Tu_1} \\
       &= \lambda_1
       \end{aligned}\]
+      Likewise, the value of \(z\) that minimizes \(R_\Lambda(z)\) is
+      \[z_{min} = \begin{bmatrix}
+      \vdots \\ 0 \\ 1
+      \end{bmatrix}\]
+      Giving us the minimal value of \(R_M(x)\):
+      \[\begin{aligned}
+      \min_{x} R_M(x) &= R_M(Uz_{min}) \\
+      &= R_M(u_n) \\
+      &= \frac{u_n^TMu_n}{u_n^Tu_n} \\
+      &= \lambda_n \frac{u_n^Tu_n}{u_n^Tu_n} \\
+      &= \lambda_n
+      \end{aligned}\]
+      In essence, what we have done is shown that because the rayleigh quotient is scaling invariant, we can represent the vector \(x\) as a linear combination of eigenvectors for \(M\) with weights on the unit ball. This means that the output of the rayleigh quotient is a linear combination of the eigenvalues of \(M\) where each weight is between 0 and 1 and the weights sum to 1. This is a convex hull, meaning the minimum and maximum must occur at eigenvalues.
       </p>
     </section>
 
