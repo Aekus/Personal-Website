@@ -95,7 +95,7 @@ body {
     width: 300px;
 }
 
-#list_of_projects {
+#list_of_projects, #list_of_blogs {
     list-style-type:circle;
 }
 
