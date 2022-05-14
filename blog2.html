@@ -148,7 +148,11 @@
       \mathbb E[\|(\mathbf V_{wor} - \mathbb E[\mathbf V_{wor}])\|_2] &\approx \sqrt{\text{Tr}(\Sigma_{wor})} = 1.55 \\
       \mathbb E[\|(\mathbf V_{wr} - \mathbb E[\mathbf V_{wr}])\|_2] &\approx \sqrt{\text{Tr}(\Sigma_{wr})} = 2.14
       \end{aligned}\]
-      The variance appears to be greater when sampling with replacement as opposed to sampling without replacement as we sort of expected. While, we can't visualize the geometry of $V_{wor}$ and $V_{wr}$ due to the vectors being $10$ dimensional, we can use PCA (principal component analysis) to project onto the maximum variance subspace of dimension 2. Here are the results: </p>
+      The variance appears to be greater when sampling with replacement as opposed to sampling without replacement. Meaning, to increase the variance of our models, we should feed them data sampled with replacement from our original set of data instead of simply selecting a subset.
+
+      </p>
+      <p class="text">
+        While, we can't visualize the geometry of $V_{wor}$ and $V_{wr}$ due to the vectors being $10$ dimensional, we can use PCA (principal component analysis) to project onto the maximum variance subspace of dimension 2. Here are the results: </p>
       <div class="project_image">
         <img src="pics/sample_PCA_plot.png"/>
       </div>
