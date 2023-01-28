@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167856456-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167856456-1');
+</script>
+<title> An "Intuitive" Explanation Behind Optimizing Rayleigh Quotients </title>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js" integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true},
+              {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+              {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+              {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
+    });
+</script>
+</head>
+<body>
+    <div id = "page">
+    <section id="header">
+    <div id="menu">
+        <nav id="Main Menu" role="navigation">
+            <ul id = "navigation_list">
+				        <li id="about_me"><a href="index.html"  id="about_link">About me</a></li>
+                <li id="projects"><a href="projects.html" id="projects_link">Projects</a></li>
+                <li id="teaching"><a href="teaching.html"  id="teaching_link">Teaching</a></li>
+                <li id="blog"><a href="blog.html" class="active" id="blog_link">Blog</a></li>
+            </ul>
+        </nav>
+    </div>
+    </section>
+        <hr>
+    <section id="main">
+      <h1 class="blog_title"> A Probabilistic Analysis of Grids </h1>
+
+      <p class="text">
+        I've wondered for a while why streets are organized in square grid-like patterns almost ubiquitously.
+        Occasionally, there might be a street running diagonally or there might be some ill-placed monument requiring a roundabout, but the default rules of city planning seem to be:
+      </p>
+      <ol>
+        <li> <p class="text"> Intersect streets at a right angle </p>  </li>
+        <li> <p class="text"> Keep the distance between intersections uniform  </p>
+      </ol>
+      <p class="text"> Of course, I know nothing about city planning so forgive my ignorance. If I was a guessing man, I'd venture that square-like grids exist for good reason. For one, they facilitate our addiction to other rectangular objects, like buildings. They also are remarkably simple to navigate. To get from any one point to another on a rectangular grid, it takes at most 1 turn. But ignoring these concerns, is there a way to mathematically quantify their optimality? </p>
+      <p class="text"> Suppose I am a blob on a grid of some kind. I want to travel a euclidean distance of 1 mile (or kilometer depending on your creed) away in some random direction, but I'm only allowed to use the streets of my grid. How far can I expect to walk? </p>
+      <p class="text"> Formally, suppose we sample a direction $\mathbf{\theta} \sim U(0, 2\pi)$ uniformly at random. Then, if $\vec{p} \in \R^2$ is our current position, $\mathbf{\vec{q}} = \vec{p} + \begin{bmatrix}
+      \sin(\theta) & \cos(\theta)
+      \end{bmatrix}^\top$ is a random point 1 unit away. The shortest distance between $\vec{p}$ and $\mathbf{\vec{q}}$ if we only traverse the "streets" of our grid is given by $D(\vec{p}, \mathbf{\vec{q}})$. We wish to understand the distribution of $D(\vec{p}, \mathbf{\vec{q}})$ and perhaps most important, compute $\mathbb E[D(\vec{p}, \mathbf{\vec{q}})]$, the expected distance. </p>
+
+      <p class="blog_subheader"> Square Grid </p>
+      <p class="text"> We start with the case that motivated this whole thought experiment, and, as it turns out, the easiest to solve. </p>
+      <div class="project_image">
+        <img src="pics/blog4/square_grid.png"/>
+      </div>
+      <p class="text"> In the figure above, many points along the circle don't intersect with the grid. This problem is solved by considering an arbitrarily small grid, such that any point on the circle is within $\epsilon$ of a point on the grid. Then the distance metric on this space is given by the $\ell_1$ norm, also known as the manhattan distance.
+      </p>
+      \[
+      D(\vec{p}, \mathbf{\vec{q}}) = \|\mathbf{\vec{q}} - \vec{p}\|_1 = |\sin(\theta)| + |\cos(\theta)|
+      \]
+      <p class="text"> This isn't a distribution that has a clean pdf, but we can generate samples of $\theta$ because it's a simple uniform distribution and transform those. Then, to avoid the clunkiness of dealing with histograms, we can use Gaussian Kernel Density estimation to estimate a continuous pdf. </p>
+      <div class="project_image">
+        <img src="pics/blog4/square_dist.png"/>
+      </div>
+      <p class="text">
+        Some quick facts about this distribution. First, the best case distance (minimum) is 1 when $\theta = z\pi/2$ for any integer $z$. The worst case distance (maximum) is $\sqrt{2}$ when $\theta = (2z+1)\pi/4$. Now's we compute the expected distance.
+      </p>
+      \[\begin{aligned}
+        \mathbb E[D(\vec{p}, \mathbf{\vec{q}})] &= \int_{\Omega} D(\vec{p}, \mathbf{\vec{q}})p_\theta(t) ~ dt \\
+        &= \frac{1}{2\pi} \int_{0}^{2\pi} |\sin(t)| + |\cos(t)| ~ dt
+      \end{aligned}\]
+      <p class="text">
+        Computing this integral might seem annoying until we notice that the distance function is symmetric across all 4 quadrants. In the first quadrant (when $0 \leq t \leq \pi/2$) $\sin(t) \geq 0$ and $\cos(t) \geq 0$, so we can get rid of the absolute values and solve the integral with basic tools.
+      </p>
+      \[\begin{aligned}
+        \frac{1}{2\pi} \int_{0}^{2\pi} |\sin(t)| + |\cos(t)| ~ dt &= \frac{2}{\pi} \int_{0}^{\pi/2} \sin(t) + \cos(t) ~ dt \\
+        &= \frac{4}{\pi} \\
+        &\approx 1.273
+      \end{aligned}\]
+      <p class="text">
+        The simplicity of this solution is quite satisfying.
+      </p>
+      <p class="blog_subheader"> Triangular Grid </p>
+      <p class="text"> Now, suppose our grid was tiled with equilateral triangles, as in my artistic reproduction below. </p>
+      <div class="project_image">
+        <img src="pics/blog4/tri_grid.png"/>
+      </div>
+      <p class="text"> One observation which will make the rest of our derivations easier is that every "sextant" (or $\pi/3$ slice of the circle) is symmetric. Specifically, $D(\vec{p}, \vec{q}_1) = D(\vec{p}, \vec{q}_2)$ if $\vec{q}_1 - \vec{p}$ and $\vec{q}_2 - \vec{p}$ are $\pi/3$ rotations of one another. See the vectors represented by the blue and red arrow below for reference.
+        <div class="project_image">
+          <img src="pics/blog4/tri_grid_arrows.png"/>
+        </div>
+      <p class="text">
+      Looking at the sextant between the blue and red arrows, any point $\vec{q}$ lying on the unit circle on this sextant can be reached by first traversing along the blue arrow from $\vec{p}$ to a point $\vec{p}_1$ where the angle between the vector $\vec{q} - \vec{p}_1$ and the blue arrow is $\pi/3$. Then, by traversing in the direction of the red arrow until the point $\vec{q}$. This is hopefully made more clear with the drawing below.
+      </p>
+      <div class="project_image">
+        <img src="pics/blog4/tri_traversal.png"/>
+      </div>
+      <p class="text">
+        Given some $\theta \in (0, \pi/3)$, $D(\vec{p}, \mathbf{\vec{q}}) = a(\theta) + b(\theta)$, where $a$ and $b$ are the side lengths of the triangle above. For $\theta$ outside this range, we can make use of symmetry defined earlier. We compute $a(\theta)$ and $b(\theta)$ with a formula I thought I'd never see again, the sine law:
+      </p>
+
+      \[
+          a(\theta) = \frac{2\sin(\frac{\pi}{3} - \theta)}{\sqrt{3}}, \quad b(\theta) = \frac{2\sin(\theta)}{\sqrt{3}}
+      \]
+      <p class="text"> Now, we can once again sample the distribution of $D(\vec{p}, \mathbf{\vec{q}})$: </p>
+      <div class="project_image">
+        <img src="pics/blog4/tri_dist.png"/>
+      </div>
+      <p class="text"> This has a very similar distribution to the square grid with perhaps a heavier left tail. The best case (minimum) distance is 1 obtained when $\theta = z\pi/3$ for any integer $z$ and the worst case (maximum) distance is $\frac{2}{\sqrt{3}}$ when $\theta = (2z+1)\pi/6$. The derivation for the average case is similar to that for the square grid:</p>
+      \[\begin{aligned}
+        \mathbb E[D(\vec{p}, \mathbf{\vec{q}})] &= \frac{1}{2\pi} \int_{0}^{2\pi} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
+        &= \frac{3}{\pi} \int_{0}^{\pi/3} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
+        &= \frac{3}{\pi} \int_{0}^{\pi/3} \frac{2\sin(\frac{\pi}{3} - \theta)}{\sqrt{3}} + \frac{2\sin(\theta)}{\sqrt{3}} ~ dt\\
+        &= \frac{2\sqrt{3}}{\pi} \\
+        &\approx 1.103
+      \end{aligned}\]
+      <p class="text"> This is a significant improvement on the expected distance with a squared grid. To put it into perspective, if I was travelling at a constant speed from $\vec{p}$ to $\vec{q}$, I'd expect to take about 10% longer by following a triangular grid than by following no grid at all, and about 27% longer by following a square grid. </p>
+    </section>
+
+    </div>
+    </body>
+</html>

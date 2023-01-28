@@ -137,7 +137,7 @@ body {
     margin-bottom: 10px;
 }
 
-.project_subheader {
+.project_subheader, .blog_subheader {
   font-family: "Bookman Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-weight:100;
     font-size: 18px;
