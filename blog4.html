@@ -10,7 +10,7 @@
 
   gtag('config', 'UA-167856456-1');
 </script>
-<title> An "Intuitive" Explanation Behind Optimizing Rayleigh Quotients </title>
+<title> A Probabilitic Analysis of Distance Metrics on Grids </title>
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
@@ -54,7 +54,7 @@
     </section>
         <hr>
     <section id="main">
-      <h1 class="blog_title"> A Probabilistic Analysis of Grids </h1>
+      <h1 class="blog_title"> A Probabilitic Analysis of Distance Metrics on Grids </h1>
 
       <p class="text">
         I've wondered for a while why streets are organized in square grid-like patterns almost ubiquitously.
@@ -76,30 +76,25 @@
         <img src="pics/blog4/square_grid.png"/>
       </div>
       <p class="text"> In the figure above, many points along the circle don't intersect with the grid. This problem is solved by considering an arbitrarily small grid, such that any point on the circle is within $\epsilon$ of a point on the grid. Then the distance metric on this space is given by the $\ell_1$ norm, also known as the manhattan distance.
-      </p>
       \[
       D(\vec{p}, \mathbf{\vec{q}}) = \|\mathbf{\vec{q}} - \vec{p}\|_1 = |\sin(\theta)| + |\cos(\theta)|
       \]
-      <p class="text"> This isn't a distribution that has a clean pdf, but we can generate samples of $\theta$ because it's a simple uniform distribution and transform those. Then, to avoid the clunkiness of dealing with histograms, we can use Gaussian Kernel Density estimation to estimate a continuous pdf. </p>
+      This isn't a distribution that has a clean pdf, but we can generate samples of $\theta$ because it's a simple uniform distribution and transform those. Then, to avoid the clunkiness of dealing with histograms, we can use Gaussian Kernel Density estimation to estimate a continuous pdf. </p>
       <div class="project_image">
         <img src="pics/blog4/square_dist.png"/>
       </div>
       <p class="text">
         Some quick facts about this distribution. First, the best case distance (minimum) is 1 when $\theta = z\pi/2$ for any integer $z$. The worst case distance (maximum) is $\sqrt{2}$ when $\theta = (2z+1)\pi/4$. Now's we compute the expected distance.
-      </p>
       \[\begin{aligned}
         \mathbb E[D(\vec{p}, \mathbf{\vec{q}})] &= \int_{\Omega} D(\vec{p}, \mathbf{\vec{q}})p_\theta(t) ~ dt \\
         &= \frac{1}{2\pi} \int_{0}^{2\pi} |\sin(t)| + |\cos(t)| ~ dt
       \end{aligned}\]
-      <p class="text">
         Computing this integral might seem annoying until we notice that the distance function is symmetric across all 4 quadrants. In the first quadrant (when $0 \leq t \leq \pi/2$) $\sin(t) \geq 0$ and $\cos(t) \geq 0$, so we can get rid of the absolute values and solve the integral with basic tools.
-      </p>
       \[\begin{aligned}
         \frac{1}{2\pi} \int_{0}^{2\pi} |\sin(t)| + |\cos(t)| ~ dt &= \frac{2}{\pi} \int_{0}^{\pi/2} \sin(t) + \cos(t) ~ dt \\
         &= \frac{4}{\pi} \\
         &\approx 1.273
       \end{aligned}\]
-      <p class="text">
         The simplicity of this solution is quite satisfying.
       </p>
       <p class="blog_subheader"> Triangular Grid </p>
@@ -119,24 +114,68 @@
       </div>
       <p class="text">
         Given some $\theta \in (0, \pi/3)$, $D(\vec{p}, \mathbf{\vec{q}}) = a(\theta) + b(\theta)$, where $a$ and $b$ are the side lengths of the triangle above. For $\theta$ outside this range, we can make use of symmetry defined earlier. We compute $a(\theta)$ and $b(\theta)$ with a formula I thought I'd never see again, the sine law:
-      </p>
-
       \[
           a(\theta) = \frac{2\sin(\frac{\pi}{3} - \theta)}{\sqrt{3}}, \quad b(\theta) = \frac{2\sin(\theta)}{\sqrt{3}}
       \]
-      <p class="text"> Now, we can once again sample the distribution of $D(\vec{p}, \mathbf{\vec{q}})$: </p>
+      Now, we can once again sample the distribution of $D(\vec{p}, \mathbf{\vec{q}})$: </p>
       <div class="project_image">
         <img src="pics/blog4/tri_dist.png"/>
       </div>
-      <p class="text"> This has a very similar distribution to the square grid with perhaps a heavier left tail. The best case (minimum) distance is 1 obtained when $\theta = z\pi/3$ for any integer $z$ and the worst case (maximum) distance is $\frac{2}{\sqrt{3}}$ when $\theta = (2z+1)\pi/6$. The derivation for the average case is similar to that for the square grid:</p>
+      <p class="text"> This has a very similar distribution to the square grid with perhaps a heavier left tail. The best case (minimum) distance is 1 obtained when $\theta = z\pi/3$ for any integer $z$ and the worst case (maximum) distance is $\frac{2}{\sqrt{3}}$ when $\theta = (2z+1)\pi/6$. The derivation for the average case is similar to that for the square grid:
       \[\begin{aligned}
         \mathbb E[D(\vec{p}, \mathbf{\vec{q}})] &= \frac{1}{2\pi} \int_{0}^{2\pi} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
         &= \frac{3}{\pi} \int_{0}^{\pi/3} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
-        &= \frac{3}{\pi} \int_{0}^{\pi/3} \frac{2\sin(\frac{\pi}{3} - \theta)}{\sqrt{3}} + \frac{2\sin(\theta)}{\sqrt{3}} ~ dt\\
+        &= \frac{3}{\pi} \int_{0}^{\pi/3} \frac{2\sin(\frac{\pi}{3} - t)}{\sqrt{3}} + \frac{2\sin(t)}{\sqrt{3}} ~ dt\\
         &= \frac{2\sqrt{3}}{\pi} \\
         &\approx 1.103
       \end{aligned}\]
-      <p class="text"> This is a significant improvement on the expected distance with a squared grid. To put it into perspective, if I was travelling at a constant speed from $\vec{p}$ to $\vec{q}$, I'd expect to take about 10% longer by following a triangular grid than by following no grid at all, and about 27% longer by following a square grid. </p>
+      This is a significant improvement on the expected distance with a squared grid. To put it into perspective, if I was travelling at a constant speed from $\vec{p}$ to $\vec{q}$, I'd expect to take about 10% longer by following a triangular grid than by following no grid at all, and about 27% longer by following a square grid. </p>
+      <p class="blog_subheader"> Hexagonal Grid </p>
+      <p class="text"> We now evaluate our last regular polygonal grid (triangles, squares, and hexagons are the only regular polygons that tile a plane). </p>
+      <div class="project_image">
+        <img src="pics/blog4/hex_grid.png"/>
+      </div>
+      <p class="text">
+      One can construct the hexagonal grid by removing edges from the triangular grid, so as it turns out the analysis for our distance metric on the hexagonal grid is quite similar. First, you can show that every (1/12)-th slice of the circle is symmetric on the hexagonal grid. As a result, we will only evaluate the distance metric on the circular arc between the points $\vec{q}_1 = \vec{p} + \begin{bmatrix} 1 & 0 \end{bmatrix}^\top$ and $\vec{q}_2 = \vec{p} + \begin{bmatrix} \sqrt{3}/2 & 1/2 \end{bmatrix}^\top$, which is the set of points that satisfy $\theta \in (0, \pi/6)$. In this section of the circle, it can be shown that the shortest path between $\vec{p}$ and $\vec{q}$ can be chosen to satisfy the diagram below:
+      </p>
+      <div class="project_image">
+        <img src="pics/blog4/hex_traversal.png"/>
+      </div>
+      <p class="text"> Hence, we can write:
+      \[
+        D(\vec{p}, \vec{q}) = D(\vec{p}, \vec{p}_1) + D(\vec{p}_1, \vec{q})
+      \]
+      When the hexagonal grid is dense,
+      \[
+      D(\vec{p}, \vec{p}_1) = \frac{4}{3}\|\vec{p}_1 - \vec{p}\|_2
+      \]
+      and
+      \[
+      D(\vec{p}_1, \vec{q}) = \frac{2}{\sqrt{3}}\|\vec{q} - \vec{p}_1\|_2
+      \]
+      The values $\|\vec{p}_1 - \vec{p}\|_2$ and $\|\vec{q} - \vec{p}_1\|_2$ are found by applying the sine law to the dotted line triangle in the above image. This gives us
+      \[
+           \|\vec{p}_1 - \vec{p}\|_2 = 2\sin(\frac{\pi}{6} - \theta), \quad \|\vec{q} - \vec{p}_1\|_2 = 2\sin(\theta)
+      \]
+      Putting it all together, we can write our distance metric on the random vector $\mathbf{\vec{q}}$ as
+      \[
+          D(\vec{p}, \mathbf{\vec{q}}) = \frac{8}{3} \sin \Big( \frac{\pi}{6} - \theta \Big) + \frac{4}{\sqrt{3}} \sin(\theta) \\
+      \]
+      Sampling this distribution gives us a similar shape to distance metric distributions on the square and triangular grid: </p>
+      <div class="project_image">
+        <img src="pics/blog4/hex_dist.png"/>
+      </div>
+      <p class="text">
+      What's interesting to note about this distribution is the the best case (minimal) distance is $\frac{2\sqrt{3}}{\pi}$ when $\theta = (2z+1)\pi/6$ for some integer $z$, which is the expected distance on the triangular grid. For both the square and triangular cases, the best case distance was 1 since it was possible to traverse on a straight path from $\vec{p}$ to $\mathbf{\vec{q}}$. The worst case distance is $4/3$, when $\theta = z\pi/3$. As a result, the best case distance on the hexagonal grid is worse than the best case on the square grid but the worst case on the hexagonal grid is better than the worst case on the square grid. It remains to be seen what the average case is.
+      \[\begin{aligned}
+        \mathbb E[D(\vec{p}, \mathbf{\vec{q}})] &= \frac{1}{2\pi} \int_{0}^{2\pi} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
+        &= \frac{6}{\pi} \int_{0}^{\pi/6} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
+        &= \frac{6}{\pi} \int_{0}^{\pi/6} \frac{8\sin(\frac{\pi}{6} - t)}{3} + \frac{4\sin(t)}{\sqrt{3}} ~ dt\\
+        &= \frac{4}{\pi} \\
+        &\approx 1.273
+      \end{aligned}\]
+      The expected distance on the hexagonal grid is equal to the expected distance on the square grid! This results seems to defy my intuitions. Every intersection on the hexagonal grid has 3 possible paths with an interior angle of $2\pi/3$ between them. Compared to a square grid which has 4 possible paths at every intersection with an interior angle of $\pi/2$. My intuition tells me that by making paths more sparse, the expected distance should increase, but this doesn't seem to be the case. 
+      </p>
     </section>
 
     </div>
