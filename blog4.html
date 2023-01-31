@@ -77,7 +77,7 @@
       </div>
       <p class="text"> In the figure above, many points along the circle don't intersect with the grid. This problem is solved by considering an arbitrarily small grid, such that any point on the circle is within $\epsilon$ of a point on the grid. Then the distance metric on this space is given by the $\ell_1$ norm, also known as the manhattan distance.
       \[
-      D(\vec{p}, \mathbf{\vec{q}}) = \|\mathbf{\vec{q}} - \vec{p}\|_1 = |\sin(\theta)| + |\cos(\theta)|
+      D_s(\vec{p}, \mathbf{\vec{q}}) = \|\mathbf{\vec{q}} - \vec{p}\|_1 = |\sin(\theta)| + |\cos(\theta)|
       \]
       This isn't a distribution that has a clean pdf, but we can generate samples of $\theta$ because it's a simple uniform distribution and transform those. Then, to avoid the clunkiness of dealing with histograms, we can use Gaussian Kernel Density estimation to estimate a continuous pdf. </p>
       <div class="project_image">
@@ -86,7 +86,7 @@
       <p class="text">
         Some quick facts about this distribution. First, the best case distance (minimum) is 1 when $\theta = z\pi/2$ for any integer $z$. The worst case distance (maximum) is $\sqrt{2}$ when $\theta = (2z+1)\pi/4$. Now's we compute the expected distance.
       \[\begin{aligned}
-        \mathbb E[D(\vec{p}, \mathbf{\vec{q}})] &= \int_{\Omega} D(\vec{p}, \mathbf{\vec{q}})p_\theta(t) ~ dt \\
+        \mathbb E[D_s(\vec{p}, \mathbf{\vec{q}})] &= \int_{\Omega} D_s(\vec{p}, \mathbf{\vec{q}})p_\theta(t) ~ dt \\
         &= \frac{1}{2\pi} \int_{0}^{2\pi} |\sin(t)| + |\cos(t)| ~ dt
       \end{aligned}\]
         Computing this integral might seem annoying until we notice that the distance function is symmetric across all 4 quadrants. In the first quadrant (when $0 \leq t \leq \pi/2$) $\sin(t) \geq 0$ and $\cos(t) \geq 0$, so we can get rid of the absolute values and solve the integral with basic tools.
@@ -102,7 +102,7 @@
       <div class="project_image">
         <img src="pics/blog4/tri_grid.png"/>
       </div>
-      <p class="text"> One observation which will make the rest of our derivations easier is that every "sextant" (or $\pi/3$ slice of the circle) is symmetric. Specifically, $D(\vec{p}, \vec{q}_1) = D(\vec{p}, \vec{q}_2)$ if $\vec{q}_1 - \vec{p}$ and $\vec{q}_2 - \vec{p}$ are $\pi/3$ rotations of one another. See the vectors represented by the blue and red arrow below for reference.
+      <p class="text"> One observation which will make the rest of our derivations easier is that every "sextant" (or $\pi/3$ slice of the circle) is symmetric. Specifically, $D_t(\vec{p}, \vec{q}_1) = D_t(\vec{p}, \vec{q}_2)$ if $\vec{q}_1 - \vec{p}$ and $\vec{q}_2 - \vec{p}$ are $\pi/3$ rotations of one another. See the vectors represented by the blue and red arrow below for reference.
         <div class="project_image">
           <img src="pics/blog4/tri_grid_arrows.png"/>
         </div>
@@ -113,18 +113,18 @@
         <img src="pics/blog4/tri_traversal.png"/>
       </div>
       <p class="text">
-        Given some $\theta \in (0, \pi/3)$, $D(\vec{p}, \mathbf{\vec{q}}) = a(\theta) + b(\theta)$, where $a$ and $b$ are the side lengths of the triangle above. For $\theta$ outside this range, we can make use of symmetry defined earlier. We compute $a(\theta)$ and $b(\theta)$ with a formula I thought I'd never see again, the sine law:
+        Given some $\theta \in (0, \pi/3)$, $D_t(\vec{p}, \mathbf{\vec{q}}) = a(\theta) + b(\theta)$, where $a$ and $b$ are the side lengths of the triangle above. For $\theta$ outside this range, we can make use of symmetry defined earlier. We compute $a(\theta)$ and $b(\theta)$ with a formula I thought I'd never see again, the sine law:
       \[
           a(\theta) = \frac{2\sin(\frac{\pi}{3} - \theta)}{\sqrt{3}}, \quad b(\theta) = \frac{2\sin(\theta)}{\sqrt{3}}
       \]
-      Now, we can once again sample the distribution of $D(\vec{p}, \mathbf{\vec{q}})$: </p>
+      Now, we can once again sample the distribution of $D_t(\vec{p}, \mathbf{\vec{q}})$: </p>
       <div class="project_image">
         <img src="pics/blog4/tri_dist.png"/>
       </div>
       <p class="text"> This has a very similar distribution to the square grid with perhaps a heavier left tail. The best case (minimum) distance is 1 obtained when $\theta = z\pi/3$ for any integer $z$ and the worst case (maximum) distance is $\frac{2}{\sqrt{3}}$ when $\theta = (2z+1)\pi/6$. The derivation for the average case is similar to that for the square grid:
       \[\begin{aligned}
-        \mathbb E[D(\vec{p}, \mathbf{\vec{q}})] &= \frac{1}{2\pi} \int_{0}^{2\pi} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
-        &= \frac{3}{\pi} \int_{0}^{\pi/3} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
+        \mathbb E[D_t(\vec{p}, \mathbf{\vec{q}})] &= \frac{1}{2\pi} \int_{0}^{2\pi} D_t(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
+        &= \frac{3}{\pi} \int_{0}^{\pi/3} D_t(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
         &= \frac{3}{\pi} \int_{0}^{\pi/3} \frac{2\sin(\frac{\pi}{3} - t)}{\sqrt{3}} + \frac{2\sin(t)}{\sqrt{3}} ~ dt\\
         &= \frac{2\sqrt{3}}{\pi} \\
         &\approx 1.103
@@ -143,15 +143,15 @@
       </div>
       <p class="text"> Hence, we can write:
       \[
-        D(\vec{p}, \vec{q}) = D(\vec{p}, \vec{p}_1) + D(\vec{p}_1, \vec{q})
+        D_h(\vec{p}, \vec{q}) = D_h(\vec{p}, \vec{p}_1) + D_h(\vec{p}_1, \vec{q})
       \]
       When the hexagonal grid is dense,
       \[
-      D(\vec{p}, \vec{p}_1) = \frac{4}{3}\|\vec{p}_1 - \vec{p}\|_2
+      D_h(\vec{p}, \vec{p}_1) = \frac{4}{3}\|\vec{p}_1 - \vec{p}\|_2
       \]
       and
       \[
-      D(\vec{p}_1, \vec{q}) = \frac{2}{\sqrt{3}}\|\vec{q} - \vec{p}_1\|_2
+      D_h(\vec{p}_1, \vec{q}) = \frac{2}{\sqrt{3}}\|\vec{q} - \vec{p}_1\|_2
       \]
       The values $\|\vec{p}_1 - \vec{p}\|_2$ and $\|\vec{q} - \vec{p}_1\|_2$ are found by applying the sine law to the dotted line triangle in the above image. This gives us
       \[
@@ -159,22 +159,31 @@
       \]
       Putting it all together, we can write our distance metric on the random vector $\mathbf{\vec{q}}$ as
       \[
-          D(\vec{p}, \mathbf{\vec{q}}) = \frac{8}{3} \sin \Big( \frac{\pi}{6} - \theta \Big) + \frac{4}{\sqrt{3}} \sin(\theta) \\
+          D_h(\vec{p}, \mathbf{\vec{q}}) = \frac{8}{3} \sin \Big( \frac{\pi}{6} - \theta \Big) + \frac{4}{\sqrt{3}} \sin(\theta) \\
       \]
       Sampling this distribution gives us a similar shape to distance metric distributions on the square and triangular grid: </p>
       <div class="project_image">
         <img src="pics/blog4/hex_dist.png"/>
       </div>
       <p class="text">
-      What's interesting to note about this distribution is the the best case (minimal) distance is $\frac{2\sqrt{3}}{\pi}$ when $\theta = (2z+1)\pi/6$ for some integer $z$, which is the expected distance on the triangular grid. For both the square and triangular cases, the best case distance was 1 since it was possible to traverse on a straight path from $\vec{p}$ to $\mathbf{\vec{q}}$. The worst case distance is $4/3$, when $\theta = z\pi/3$. As a result, the best case distance on the hexagonal grid is worse than the best case on the square grid but the worst case on the hexagonal grid is better than the worst case on the square grid. It remains to be seen what the average case is.
+      What's interesting to note about this distribution is the the best case (minimal) distance is $2/\sqrt{3}$ when $\theta = (2z+1)\pi/6$ for some integer $z$, which is the worst distance on the triangular grid. For both the square and triangular cases, the best case distance was 1 since it was possible to traverse on a straight path from $\vec{p}$ to $\mathbf{\vec{q}}$. The worst case distance is $4/3$, when $\theta = z\pi/3$. As a result, the best case distance on the hexagonal grid is worse than the best case on the square grid but the worst case on the hexagonal grid is better than the worst case on the square grid. It remains to be seen what the average case is.
       \[\begin{aligned}
-        \mathbb E[D(\vec{p}, \mathbf{\vec{q}})] &= \frac{1}{2\pi} \int_{0}^{2\pi} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
-        &= \frac{6}{\pi} \int_{0}^{\pi/6} D(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
+        \mathbb E[D_h(\vec{p}, \mathbf{\vec{q}})] &= \frac{1}{2\pi} \int_{0}^{2\pi} D_h(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
+        &= \frac{6}{\pi} \int_{0}^{\pi/6} D_h(\vec{p}, \mathbf{\vec{q}}) ~ dt \\
         &= \frac{6}{\pi} \int_{0}^{\pi/6} \frac{8\sin(\frac{\pi}{6} - t)}{3} + \frac{4\sin(t)}{\sqrt{3}} ~ dt\\
         &= \frac{4}{\pi} \\
         &\approx 1.273
       \end{aligned}\]
-      The expected distance on the hexagonal grid is equal to the expected distance on the square grid! This results seems to defy my intuitions. Every intersection on the hexagonal grid has 3 possible paths with an interior angle of $2\pi/3$ between them. Compared to a square grid which has 4 possible paths at every intersection with an interior angle of $\pi/2$. My intuition tells me that by making paths more sparse, the expected distance should increase, but this doesn't seem to be the case. 
+      The expected distance on the hexagonal grid is equal to the expected distance on the square grid! This results seems to defy my intuitions. Every intersection on the hexagonal grid has 3 possible paths with an interior angle of $2\pi/3$ between them. Compared to a square grid which has 4 possible paths at every intersection with an interior angle of $\pi/2$. My intuition tells me that by making paths more sparse, the expected distance should increase, but this doesn't seem to always be the case.
+      </p>
+      <p class="blog_subheader"> Comparison of Distance Metrics </p>
+      <p class="text">
+      Topologically speaking, we have constructed three metric spaces $(\R^2, D_s(\vec{p}, \vec{q}))$, $(\R^2, D_t(\vec{p}, \vec{q}))$, and $(\R^2, D_h(\vec{p}, \vec{q}))$ by restricting movement in the Euclidean metric space. To summarize all our above results, we can look at these distances by looking at these distance metrics as a function of $\theta$. </p>
+      <div class="project_image">
+        <img src="pics/blog4/metric_comparison.png" width=400px/>
+      </div>
+      <p class="text">
+      This completes the evaluation of every regular polygonal tiling in 2d space. There are many more configurations involving multiple regular polygons (the so-called semi-regular tesselations), or even non-polygon grids such as circle-packing that might be worth analyzing at some point. It might also be interesting to compare distance metrics for polytope tilings in higher dimension space. For now, though, I'll leave it here.
       </p>
     </section>
 
