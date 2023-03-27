@@ -10,7 +10,7 @@
   gtag('config', 'UA-167856456-1');
 </script>
 <title> Using Generative Adversarial Networks to Imitate My Handwriting </title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../../style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
@@ -19,10 +19,10 @@
     <div id="menu">
         <nav id="Main Menu" role="navigation">
             <ul id = "navigation_list">
-				<li id="about_me"><a href="index.html"  id="about_link">About me</a></li>
-                <li id="projects"><a href="projects.html" class="active" id="projects_link">Projects</a></li>
-                <li id="teaching"><a href="teaching.html" id="teaching_link">Teaching</a></li>
-                <li id="blog"><a href="blog.html" id="blog_link">Blog</a></li>
+				<li id="about_me"><a href="../index.html"  id="about_link">About me</a></li>
+                <li id="projects"><a href="../projects.html" class="active" id="projects_link">Projects</a></li>
+                <li id="teaching"><a href="../teaching.html" id="teaching_link">Teaching</a></li>
+                <li id="blog"><a href="../blog.html" id="blog_link">Blog</a></li>
             </ul>
         </nav>
     </div>
@@ -30,7 +30,7 @@
         <hr>
     <section id="main">
       <p class="project_title"> Using Generative Adversarial Networks to Imitate My Handwriting </p>
-      <div class="icon"><a href=https://github.com/Aekus/Handwriting_GAN><img src="pics/githubwidget.svg" id="github_link"/> </a> </div>
+      <div class="icon"><a href=https://github.com/Aekus/Handwriting_GAN><img src="../../pics/githubwidget.svg" id="github_link"/> </a> </div>
       <p class="project_subheader"> Introduction </p>
       <p class="text"> I wanted to learn more about neural networks recently, and so I was reading up to see what was new in the field. I was familiar with the classical applications of neural networks: image classification, natural language processing, game AIs, and so forth. While the specific type and implementation varied, the premise for the most part was a black box that is fed some input in the form of raw data and would choose from a corresponding set of possible outputs the most likely one based on some internal parameters. Granted, this definition does not do justice to the complexity involved in image classification or natural language processing, but this was my mental image of neural networks at the time. </p>
       <p class="text">
@@ -56,7 +56,7 @@
       The simplest Neural Network is a perceptron. It works through several input nodes each managing one "aspect" of the input data. Each of these nodes are connected to a single output node by an imaginary edge that carries a weight. The program calculates the sum of the products of each node and its respective edge and uses that value as the input to some activation function <i>f(x)</i>, which is the output of the neural net.
       </p>
     <div class="project_image">
-    <img src="pics/proj4/Perceptron.png" id="perceptron"/>
+    <img src="../../pics/proj4/Perceptron.png" id="perceptron"/>
     </div>
     <div class="caption_box">
     <p class="caption"> <a href="https://lucidar.me/en/neural-networks/perceptron/" class="in-text_link">source</a></p>
@@ -68,7 +68,7 @@
       The shift from a perceptron to a general neural network is quite simple. The perceptron contains just a single layer, consisting of the input nodes. In a general neural network, there may be multiple layers, and each of the non-input layers are referred to as "hidden" since the values of each of those nodes are quite unimportant since they are just intermediates.
     </p>
     <div class="project_image">
-    <img src="pics/proj4/NeuralNetwork.png" id="perceptron"/>
+    <img src="../../pics/proj4/NeuralNetwork.png" id="perceptron"/>
     </div>
     <div class="caption_box">
     <p class="caption"> <a href="https://tex.stackexchange.com/questions/497859/neural-network-diagram" class="in-text_link">source</a></p>
@@ -112,7 +112,7 @@
       <table class="image_table">
         <tr>
           <td class="image_cell_container" colspan=3>
-            <img src="pics/proj4/original.png" class="image_cell"/>
+            <img src="../../pics/proj4/original.png" class="image_cell"/>
           </td>
         </tr>
         <tr>
@@ -122,13 +122,13 @@
         </tr>
         <tr>
           <td class="image_cell_container">
-            <img src="pics/proj4/epoch1.png" class="image_cell"/>
+            <img src="../../pics/proj4/epoch1.png" class="image_cell"/>
           </td>
           <td class="image_cell_container">
-            <img src="pics/proj4/epoch5.png"  class="image_cell"/>
+            <img src="../../pics/proj4/epoch5.png"  class="image_cell"/>
           </td>
           <td class="image_cell_container">
-            <img src="pics/proj4/epoch10.png" class="image_cell"/>
+            <img src="../../pics/proj4/epoch10.png" class="image_cell"/>
           </td>
         </tr>
         <tr>
@@ -144,13 +144,13 @@
         </tr>
         <tr>
           <td class="image_cell_container">
-            <img src="pics/proj4/epoch25.png" class="image_cell"/>
+            <img src="../../pics/proj4/epoch25.png" class="image_cell"/>
           </td>
           <td class="image_cell_container">
-            <img src="pics/proj4/epoch50.png" class="image_cell"/>
+            <img src="../../pics/proj4/epoch50.png" class="image_cell"/>
           </td>
           <td class="image_cell_container">
-            <img src="pics/proj4/epoch100.png" class="image_cell"/>
+            <img src="../../pics/proj4/epoch100.png" class="image_cell"/>
           </td>
         </tr>
         <tr>
@@ -175,7 +175,7 @@
     <table class="image_table">
       <tr>
         <td class="image_cell_container" colspan=3>
-          <img src="pics/proj4/original.png" class="image_cell"/>
+          <img src="../../pics/proj4/original.png" class="image_cell"/>
         </td>
       </tr>
       <tr>
@@ -185,13 +185,13 @@
       </tr>
       <tr>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch1_sgd.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch1_sgd.png" class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch5_sgd.png"  class="image_cell"/>
+          <img src="../../pics/proj4/epoch5_sgd.png"  class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch10_sgd.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch10_sgd.png" class="image_cell"/>
         </td>
       </tr>
       <tr>
@@ -207,13 +207,13 @@
       </tr>
       <tr>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch25_sgd.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch25_sgd.png" class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch50_sgd.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch50_sgd.png" class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch100_sgd.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch100_sgd.png" class="image_cell"/>
         </td>
       </tr>
       <tr>
@@ -238,7 +238,7 @@
     <table class="image_table">
       <tr>
         <td class="image_cell_container" colspan=3>
-          <img src="pics/proj4/original.png" class="image_cell"/>
+          <img src="../../pics/proj4/original.png" class="image_cell"/>
         </td>
       </tr>
       <tr>
@@ -248,13 +248,13 @@
       </tr>
       <tr>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch1_bn.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch1_bn.png" class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch5_bn.png"  class="image_cell"/>
+          <img src="../../pics/proj4/epoch5_bn.png"  class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch10_bn.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch10_bn.png" class="image_cell"/>
         </td>
       </tr>
       <tr>
@@ -270,13 +270,13 @@
       </tr>
       <tr>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch25_bn.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch25_bn.png" class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch50_bn.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch50_bn.png" class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch100_bn.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch100_bn.png" class="image_cell"/>
         </td>
       </tr>
       <tr>
@@ -297,7 +297,7 @@
     <table class="image_table">
       <tr>
         <td class="image_cell_container" colspan=3>
-          <img src="pics/proj4/original.png" class="image_cell"/>
+          <img src="../../pics/proj4/original.png" class="image_cell"/>
         </td>
       </tr>
       <tr>
@@ -307,13 +307,13 @@
       </tr>
       <tr>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch1_bn_long.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch1_bn_long.png" class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch5_bn_long.png"  class="image_cell"/>
+          <img src="../../pics/proj4/epoch5_bn_long.png"  class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch25_bn_long.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch25_bn_long.png" class="image_cell"/>
         </td>
       </tr>
       <tr>
@@ -329,13 +329,13 @@
       </tr>
       <tr>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch100_bn_long.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch100_bn_long.png" class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch250_bn_long.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch250_bn_long.png" class="image_cell"/>
         </td>
         <td class="image_cell_container">
-          <img src="pics/proj4/epoch1000_bn_long.png" class="image_cell"/>
+          <img src="../../pics/proj4/epoch1000_bn_long.png" class="image_cell"/>
         </td>
       </tr>
       <tr>

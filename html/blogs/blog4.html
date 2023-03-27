@@ -11,7 +11,7 @@
   gtag('config', 'UA-167856456-1');
 </script>
 <title> A Probabilistic Analysis of Distance Metrics on Grids </title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../../style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
 <!-- The loading of KaTeX is deferred to speed up page rendering -->
@@ -44,10 +44,10 @@
     <div id="menu">
         <nav id="Main Menu" role="navigation">
             <ul id = "navigation_list">
-				        <li id="about_me"><a href="index.html"  id="about_link">About me</a></li>
-                <li id="projects"><a href="projects.html" id="projects_link">Projects</a></li>
-                <li id="teaching"><a href="teaching.html"  id="teaching_link">Teaching</a></li>
-                <li id="blog"><a href="blog.html" class="active" id="blog_link">Blog</a></li>
+				        <li id="about_me"><a href="../index.html"  id="about_link">About me</a></li>
+                <li id="projects"><a href="../projects.html" id="projects_link">Projects</a></li>
+                <li id="teaching"><a href="../teaching.html"  id="teaching_link">Teaching</a></li>
+                <li id="blog"><a href="../blog.html" class="active" id="blog_link">Blog</a></li>
             </ul>
         </nav>
     </div>
@@ -73,7 +73,7 @@
       <p class="blog_subheader"> Square Grid </p>
       <p class="text"> We start with the case that motivated this whole thought experiment, and, as it turns out, the easiest to solve. </p>
       <div class="project_image">
-        <img src="pics/blog4/square_grid.png"/>
+        <img src="../../pics/blog4/square_grid.png"/>
       </div>
       <p class="text"> In the figure above, many points along the circle don't intersect with the grid. This problem is solved by considering an arbitrarily small grid, such that any point on the circle is within $\epsilon$ of a point on the grid. Then the distance metric on this space is given by the $\ell_1$ norm, also known as the manhattan distance.
       \[
@@ -81,7 +81,7 @@
       \]
       This isn't a distribution that has a clean pdf, but we can generate samples of $\theta$ because it's a simple uniform distribution and transform those. Then, to avoid the clunkiness of dealing with histograms, we can use Gaussian Kernel Density estimation to estimate a continuous pdf. </p>
       <div class="project_image">
-        <img src="pics/blog4/square_dist.png"/>
+        <img src="../../pics/blog4/square_dist.png"/>
       </div>
       <p class="text">
         Some quick facts about this distribution. First, the best case distance (minimum) is 1 when $\theta = z\pi/2$ for any integer $z$. The worst case distance (maximum) is $\sqrt{2}$ when $\theta = (2z+1)\pi/4$. Now's we compute the expected distance.
@@ -100,17 +100,17 @@
       <p class="blog_subheader"> Triangular Grid </p>
       <p class="text"> Now, suppose our grid was tiled with equilateral triangles, as in my artistic reproduction below. </p>
       <div class="project_image">
-        <img src="pics/blog4/tri_grid.png"/>
+        <img src="../../pics/blog4/tri_grid.png"/>
       </div>
       <p class="text"> One observation which will make the rest of our derivations easier is that every "sextant" (or $\pi/3$ slice of the circle) is symmetric. Specifically, $D_t(\vec{p}, \vec{q}_1) = D_t(\vec{p}, \vec{q}_2)$ if $\vec{q}_1 - \vec{p}$ and $\vec{q}_2 - \vec{p}$ are $\pi/3$ rotations of one another. See the vectors represented by the blue and red arrow below for reference.
         <div class="project_image">
-          <img src="pics/blog4/tri_grid_arrows.png"/>
+          <img src="../../pics/blog4/tri_grid_arrows.png"/>
         </div>
       <p class="text">
       Looking at the sextant between the blue and red arrows, any point $\vec{q}$ lying on the unit circle on this sextant can be reached by first traversing along the blue arrow from $\vec{p}$ to a point $\vec{p}_1$ where the angle between the vector $\vec{q} - \vec{p}_1$ and the blue arrow is $\pi/3$. Then, by traversing in the direction of the red arrow until the point $\vec{q}$. This is hopefully made more clear with the drawing below.
       </p>
       <div class="project_image">
-        <img src="pics/blog4/tri_traversal.png"/>
+        <img src="../../pics/blog4/tri_traversal.png"/>
       </div>
       <p class="text">
         Given some $\theta \in (0, \pi/3)$, $D_t(\vec{p}, \mathbf{\vec{q}}) = a(\theta) + b(\theta)$, where $a$ and $b$ are the side lengths of the triangle above. For $\theta$ outside this range, we can make use of symmetry defined earlier. We compute $a(\theta)$ and $b(\theta)$ with a formula I thought I'd never see again, the sine law:
@@ -119,7 +119,7 @@
       \]
       Now, we can once again sample the distribution of $D_t(\vec{p}, \mathbf{\vec{q}})$: </p>
       <div class="project_image">
-        <img src="pics/blog4/tri_dist.png"/>
+        <img src="../../pics/blog4/tri_dist.png"/>
       </div>
       <p class="text"> This has a very similar distribution to the square grid with perhaps a heavier left tail. The best case (minimum) distance is 1 obtained when $\theta = z\pi/3$ for any integer $z$ and the worst case (maximum) distance is $\frac{2}{\sqrt{3}}$ when $\theta = (2z+1)\pi/6$. The derivation for the average case is similar to that for the square grid:
       \[\begin{aligned}
@@ -133,13 +133,13 @@
       <p class="blog_subheader"> Hexagonal Grid </p>
       <p class="text"> We now evaluate our last regular polygonal grid (triangles, squares, and hexagons are the only regular polygons that tile a plane). </p>
       <div class="project_image">
-        <img src="pics/blog4/hex_grid.png"/>
+        <img src="../../pics/blog4/hex_grid.png"/>
       </div>
       <p class="text">
       One can construct the hexagonal grid by removing edges from the triangular grid, so as it turns out the analysis for our distance metric on the hexagonal grid is quite similar. First, you can show that every (1/12)-th slice of the circle is symmetric on the hexagonal grid. As a result, we will only evaluate the distance metric on the circular arc between the points $\vec{q}_1 = \vec{p} + \begin{bmatrix} 1 & 0 \end{bmatrix}^\top$ and $\vec{q}_2 = \vec{p} + \begin{bmatrix} \sqrt{3}/2 & 1/2 \end{bmatrix}^\top$, which is the set of points that satisfy $\theta \in (0, \pi/6)$. In this section of the circle, it can be shown that the shortest path between $\vec{p}$ and $\vec{q}$ can be chosen to satisfy the diagram below:
       </p>
       <div class="project_image">
-        <img src="pics/blog4/hex_traversal.png"/>
+        <img src="../../pics/blog4/hex_traversal.png"/>
       </div>
       <p class="text"> Hence, we can write:
       \[
@@ -163,7 +163,7 @@
       \]
       Sampling this distribution gives us a similar shape to distance metric distributions on the square and triangular grid: </p>
       <div class="project_image">
-        <img src="pics/blog4/hex_dist.png"/>
+        <img src="../../pics/blog4/hex_dist.png"/>
       </div>
       <p class="text">
       What's interesting to note about this distribution is the the best case (minimal) distance is $2/\sqrt{3}$ when $\theta = (2z+1)\pi/6$ for some integer $z$, which is the worst distance on the triangular grid. For both the square and triangular cases, the best case distance was 1 since it was possible to traverse on a straight path from $\vec{p}$ to $\mathbf{\vec{q}}$. The worst case distance is $4/3$, when $\theta = z\pi/3$. As a result, the best case distance on the hexagonal grid is worse than the best case on the square grid but the worst case on the hexagonal grid is better than the worst case on the square grid. It remains to be seen what the average case is.
@@ -180,7 +180,7 @@
       <p class="text">
       Topologically speaking, we have constructed three metric spaces $(\R^2, D_s(\vec{p}, \vec{q}))$, $(\R^2, D_t(\vec{p}, \vec{q}))$, and $(\R^2, D_h(\vec{p}, \vec{q}))$ by restricting movement in the Euclidean metric space. To summarize all our above results, we can compare these distance metrics as a function of $\theta$. </p>
       <div class="project_image">
-        <img src="pics/blog4/metric_comparison.png" width=400px/>
+        <img src="../../pics/blog4/metric_comparison.png" width=400px/>
       </div>
       <p class="text">
       This completes the evaluation of every regular polygonal tiling in 2d space. There are many more configurations involving multiple regular polygons (the so-called semi-regular tesselations), or even non-polygon grids such as circle-packing that might be worth analyzing at some point. It might also be interesting to compare distance metrics for polytope tilings in higher dimension space. For now, though, I'll leave it here.

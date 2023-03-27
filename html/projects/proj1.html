@@ -10,7 +10,7 @@
   gtag('config', 'UA-167856456-1');
 </script>
 <title> Modelling Infectious Disease Spread Through Random Graphs </title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../../style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
@@ -19,10 +19,10 @@
     <div id="menu">
         <nav id="Main Menu" role="navigation">
             <ul id = "navigation_list">
-				<li id="about_me"><a href="index.html"  id="about_link">About me</a></li>
-                <li id="projects"><a href="projects.html" class="active" id="projects_link">Projects</a></li>
-                <li id="teaching"><a href="teaching.html" id="teaching_link">Teaching</a></li>
-                <li id="blog"><a href="blog.html" id="blog_link">Blog</a></li>
+				<li id="about_me"><a href="../index.html"  id="about_link">About me</a></li>
+                <li id="projects"><a href="../projects.html" class="active" id="projects_link">Projects</a></li>
+                <li id="teaching"><a href="../teaching.html" id="teaching_link">Teaching</a></li>
+                <li id="blog"><a href="../blog.html" id="blog_link">Blog</a></li>
             </ul>
         </nav>
     </div>
@@ -30,7 +30,7 @@
         <hr>
     <section id="main">
         <h1 class="project_title"> Modelling Infectious Disease Spread Through Random Graphs </h1>
-        <div class="icon"><a href="https://github.com/Aekus/Virus-Modelling"><img src="pics/githubwidget.svg" id="github_link"/> </a> </div>
+        <div class="icon"><a href="https://github.com/Aekus/Virus-Modelling"><img src="../../pics/githubwidget.svg" id="github_link"/> </a> </div>
         <h2 class="project_subheader"> Personal Note </h2>
         <p class="text"> With the recent spread of COVID-19, I’ve been hooked by the statistics that are being reported and trying to make sense out of them. It seems like the spread of viruses and other diseases are the perfect chaotic system for computers to handle (so much so that there is a dedicated field called computational epidemiology), and yet it seems like despite how well we understand virus spread, our response isn’t improving. In fact, without getting too deep into politics, one could argue that our response has worsened from SARS to H1N1 and now COVID-19. Nonetheless, I think there’s some value to be had in understanding the spread of diseases, even if it’s just to satisfy personal interest. </p>
         <p class="project_subheader"> Introduction </p>
@@ -39,7 +39,7 @@
         <h2 class="project_subheader"> Producing A Graph </h2>
         <p class="text"> This is a significant challenge. We want a graph that could feasibly represent a social network. We also want a graph that is randomly generated to reduce bias and ensure that the social network is nondeterministic. To create a random graph, the Erdős–Rényi model comes to mind. In short, for a given probability value <i>p</i>, there is a probability <i>p</i> that a node has an edge connecting to another node. This produces a binomial distribution of the number of edges coming from any one node, where the probability of a node having <i>k</i> edges is</p>
         <div class="project_image">
-        <img src="pics/proj1/choosefunction.png" id="choosefunction"/>
+        <img src="../../pics/proj1/choosefunction.png" id="choosefunction"/>
         </div>
         <p class="text">
         Whether or not this is an accurate representation of social networks is beyond my limited expertise, so I consulted <a href="https://www.pnas.org/content/99/suppl_1/2566" class="in-text_link">this</a> paper titled "Random graph models of social networks" by sociologists Newman, Watts, and Strogatz. According to the paper, "it has been shown that the distribution of actor's degrees is highly skewed." The Erdős–Rényi model produces binomial distributions which are rather normal as <i>N</i> increases, contrary to real-life networks. To skew the degree distributions to the right (such that a few nodes have many edges), the researchers propose another algorithm by Molloy and Reed, more commonly known as the configuration model in network science. (see <a href="http://snap.stanford.edu/class/cs224w-readings/Molloy95CriticalPoint.pdf" class="in-text_link">here</a> for original paper). Suppose we have a probability distribution <i>p<sub>k</sub></i>. Then, for every node, we assign <i>k</i> "stubs" to it such that <i>k</i> is drawn from <i>p<sub>k</sub></i>. A stub is a guarantee of the existence of a future edge originating from a given node where the other vertex of the edge is currently unknown. We randomly pair all of these stubs and connect them with an edge. There are two potential issues with this model: self-looping and multi-edges. Self-looping occurs when a node is assigned more than one stub and two of those stubs are randomly paired, creating an edge that originates and terminates at the same node. Multi-edges occurs when two nodes each have more than one node and two or more randomly-generated edges form between those stubs, violating the rules of a simple graph. Fortunately, it can be shown that the number of self-loops and multi-edges remains constant for large values of <i>N</i>, meaning that the probability of a self-loop or multi-edge occuring approaches 0 as <i>N</i> approaches infinity. Since neither a self-loop or a multi-edge is relevant to examining disease spread, in my implementation, I simply removed these cases.
@@ -49,47 +49,47 @@
         <h2 class="project_subheader"> Finding a Degree Distribution </h2>
         <p class="text"> Newman, Watts, and Strogatz propose a power-law distribution function of the form: </p>
         <div class="project_image">
-        <img src="pics/proj1/CodeCogsEqn.png" id="power-law_distribution"/>
+        <img src="../../pics/proj1/CodeCogsEqn.png" id="power-law_distribution"/>
         </div>
         <p class="text">
         While a probability distribution of the sort would be the most accurate according to their research, it would necessitate 3 constants and the polylogarithm function. If we simplify by removing the exponential component (and still maintaining a power-law distribution), we would need to compute the Riemann-Zeta function. The CDF of this <i>p<sub>k</sub></i> from arbitrary <i>k<sub>min</sub></i> to infinity must equal 1,        </p>
         <div class="project_image">
-        <img src="pics/proj1/powerLaw.png" id="powerLawIntegral"/>
+        <img src="../../pics/proj1/powerLaw.png" id="powerLawIntegral"/>
         </div>
         <p class="text">
         where
         </p>
         <div class="project_image">
-        <img src="pics/proj1/RiemannZeta.png" id="RiemannZeta"/>
+        <img src="../../pics/proj1/RiemannZeta.png" id="RiemannZeta"/>
         </div>
         <p class="text">If <i>k</i> is treated as discrete, the above formulas describe a zeta distribution, which follows the power law and can be used to describe the probability distribution for our graph. To summarize, our probability distribution is of the form:
         </p>
         <div class="project_image">
-        <img src="pics/proj1/chosendistribution.png" id="chosendistribution"/>
+        <img src="../../pics/proj1/chosendistribution.png" id="chosendistribution"/>
         </div>
         <p class="text"> Now, for the fun part. Here is a random graph of 100 nodes with <i>a = 3</i>. Our actual simulations will run at a much higher number of nodes, so this is simply for the sake of visualization. </p>
         <div class="project_image">
-        <img src="pics/proj1/graph1.PNG" id="graph1"/>
+        <img src="../../pics/proj1/graph1.PNG" id="graph1"/>
         </div>
         <p class="text"> It's hard to tell from the image above whether the distribution of edges follows our power rule, but a histogram for the number of edges would allow for better analysis. Here's a histogram of the number of edges for each node when <i>a = 2.5</i> and <i>N = 1000:</i></p>
         <div class="project_image">
-        <img src="pics/proj1/Hist1.PNG" id="hist1"/>
+        <img src="../../pics/proj1/Hist1.PNG" id="hist1"/>
         </div>
         <p class="text"> This distribution is clearly very similar to the probability distribution defined earlier. In this specific simulation, the maximum number of edges for a given node was 332, which seems abnormally high for a social network. While this is in fact true, there is a epidemiological concept of "super spreaders": people who transmit a given disease to far more people than the average person. For instance, one of the earliest COVID-19 spread cases came from a super-spreader who transmitted the virus to 53 people at just one choir practice in Washington state. That being said, the population of the United States is significantly larger than our simulation of 1000 nodes, suggesting that the probability of a super-spreader of this magnitude existing should be much smaller. There is also another issue in that 72.8% of the nodes have only one edge. If a node with one edge combines with another node of one edge, these will form a disjoint subgraph of size 1. The independent probability of this event occuring assuming <i>N</i> is sufficiently large is 53.0%. There are other patterns to generate disjoint subgraphs, but these are significantly less probable. Both of these problems (too many large superspreaders and too many single-degree nodes) can be solved by modifying <i>a</i>, but in opposite directions. We can reduce the size of superspreaders by increasing <i>a</i>, but doing so will also increase the number of single-degree nodes. To solve these problems, I turned away from existing models and tried tweaking several parameters. To reduce the size of super-spreaders, we take the square root of the degree randomly drawn from <i>p<sub>k</sub></i> rounded upwards using the ceiling function. We can prove that the area under the CDF of this new function is still 1:</p>
         <div class="project_image">
-        <img src="pics/proj1/modified_pk.png" id="modified_pk"/>
+        <img src="../../pics/proj1/modified_pk.png" id="modified_pk"/>
         </div>
         <p class="text">therefore</p>
         <div class="project_image">
-        <img src="pics/proj1/proof%20of%20CDF.png" id="CDFproof"/>
+        <img src="../../pics/proj1/proof%20of%20CDF.png" id="CDFproof"/>
         </div>
         <p class="text"> This does not solve the issue of the single-degree nodes, so we must increase <i>k<sub>min</sub></i> from 1 to 2. This simply causes a rightward shift in our edge distribution by 1 edge, leaving the shape, area and all other aspects of the curve intact. Here is a large (<i>N = 10000</i>) simulation of our final degree distribution at <i>a = 1.5</i> (this value was chosen arbitrarily since it seemed to produce the best mixture of super-spreaders and <i>k = k<sub>min</sub></i> nodes): </p>
         <div class="project_image">
-        <img src="pics/proj1/hist2.PNG" id="hist2"/>
+        <img src="../../pics/proj1/hist2.PNG" id="hist2"/>
         </div>
         <p class="text"> Here is a random graph with <i>N = 100</i> using the exact same degree distribution as the last histogram: </p>
         <div class="project_image">
-        <img src="pics/proj1/graph2.PNG" id="graph2"/>
+        <img src="../../pics/proj1/graph2.PNG" id="graph2"/>
         </div>
         <p class="text">
         Interestingly, since <i>k<sub>min</sub> = 2</i> and the most common degree for a node is 2, there is a phenomenon of "looping" whereby several nodes of degree two join together creating a cyclic structure. There is not much to analyze about how this affects disease spread until we create and run a simulation, of course.
@@ -109,20 +109,20 @@
         <p class="text">
         Our first group of simulations are when <i>p<sub>iso</sub></i> remains constant. This would be a result of a society not reacting to the spread of a virus, meaning that the threshold for quarantining is never reduced, perhaps as a result of the virus not being discovered or simply a poor government response. Here is a visualization of 100 nodes before and after running a simulation of 25 days (<i>p<sub>inf</sub> = 0.2, p<sub>iso</sub> = 0.1</i>): </p>
         <div class="project_image">
-        <img src="pics/proj1/infection_before.PNG" id="inf_before"/>
-        <img src="pics/proj1/infection_after.PNG" id="inf_after"/>
+        <img src="../../pics/proj1/infection_before.PNG" id="inf_before"/>
+        <img src="../../pics/proj1/infection_after.PNG" id="inf_after"/>
         </div>
         <p class="text">
         The purple nodes are in incubation, the red nodes are infected, and the green nodes are recovered. A red edge signifies the route the virus took. There appear to be 6 isolated nodes and 1 isolated pair that are caused by quarantining. Unfortunately, to reduce randomness bias we must increase <i>N</i>, meaning we will no longer be able to visualize our graphs, but instead the data they produce. Here is a graph depicting the spread of nodes among the four possible states as a function of time (<i>N = 10000, p<sub>inf</sub> = 0.2, p<sub>iso</sub> = 0.1</i>):
         </p>
         <div class="project_image">
-        <img src="pics/proj1/statesofNodes.PNG" id="statesofNodes"/>
+        <img src="../../pics/proj1/statesofNodes.PNG" id="statesofNodes"/>
         </div>
         <p class="text">
         The results are rather bleak for humanity with just 579 nodes remaining healthy, giving the virus a 94.2% infection rate. The disease lasted for 152 days before every was either healthy or recovered, and the number of active cases peaked on day 42 when 6236 nodes or 62.4% of the population had the virus. The distribution is surprisingly smooth, and each state strictly follows a logistic curve, which is quite accurate given the current COVID-19 statistics. Next, I wanted to see how consistently these results occur given the amount of randomness in our simulations. I ran the same simulation 1000 times noting down the number of healthy nodes at the end of each simulation. There seems to be two clear classes of results: succesful propagation and containment. In 60 of the cases, the number of remaining healthy nodes varied between 9986 and 9999. the 61st highest number of healthy cases drops dramatically to 815. Removing these 60 "outliers", here is a histogram for the number of healthy nodes at the end of the each simulation:
         </p>
         <div class="project_image">
-        <img src="pics/proj1/SurvivalDistribution.PNG" id="hist3"/>
+        <img src="../../pics/proj1/SurvivalDistribution.PNG" id="hist3"/>
         </div>
         <p class="text">
             The mean healthy survival rate, which is defined as the percent of nodes which are never infected during the course of the simulation, is 5.6% with a standard deviation of just 0.6%. This suggests that the end of a simulation is relatively predictable given that we know whether the total number of cases ever surpasses a certain threshold <i>t</i>. I think that while seeing how the healthy survival rate is affected by changes to our two independent variables is interesting, it is rather obvious. Instead, I think a more interesting branch of study is seeing how this threshold changes, and seeing whether the spread of healthy survival rates ever becomes continuous for large <i>N</i>. Next, we run the same simulation at <i>p<sub>iso</sub> = 0.10</i> and <i>p<sub>inf</sub> = 0.15</i>. As expected, the mean survival rate tripled to 16%, but more interestingly, the number of contained infections increased from 60 to 170. Just by reducing the infection rate by 25%, the number of contained simulations nearly tripled. The threshhold for a successfully contained infection also decreased from 9986 to 9948, suggesting that it is both more likely for a disease to fizzle out when it becomes less transmissable and also the threshhold under which it can be contained widens. Now, we run the same simulation increasing <i>p<sub>iso</sub></i> to 0.15. The mean survival rate rose from 16% to 24%, suggesting that the the rate at which infected nodes are isolated is proportional to the healthy survival rate of the disease. The threshhold in fact did not decrease but slightly increased from 9948 to 9958, but the number of simulations which never crossed the threshold rose from 170 to 248, suggesting that the the isolation rate is proportional to the number of contained simulations. Since <i>p<sub>inf</sub></i> seems to have a much greater impact on the proportion of contained simulations, I wanted to try one final simulation with <i>p<sub>inf</sub> = 0.20</i> and <i>p<sub>iso</sub> = 0.20</i>. Compared to our simulation with <i>p<sub>inf</sub> = 0.20</i> and <i>p<sub>iso</sub> = 0.10</i>, The number of contained simulations rose from 60 to 138 and the mean healthy survival rate rose from 5.6% to 12.8%. This informally reaffirms our hypothesis about the proportionality between isolation rate, healthy survival rate, and random containment rate although more simulations at a wider range would be required for more conclusive. results. </p>
@@ -130,7 +130,7 @@
             <p class="text">
                 For our second batch of simulations, we model <i>p<sub>iso</sub></i> as a linear function of time: </p>
             <div class="project_image">
-            <img src="pics/proj1/piso.png" id="piso">
+            <img src="../../pics/proj1/piso.png" id="piso">
             </div>
         <p class="text"> It makes sense that when a virus first enters a social network, there is little awareness about it and people tend to dismiss their symptoms as those of the common cold or flu. However, as it spreads, self and government-enforced quarantines become more vigilant. Once again, we will be maintaining that quarantine is <u>not</u> a precautionary measure, but instead a reactive one. Thus, only those currently infected can be quarantined. To reduce the number of independent variables, we choose a somewhat arbitrary <i>p<sub>o</sub></i> of 0.05 (a <i>p<sub>o</sub></i> of 0 would mean that no one who feels sick is quarantining, which seems unlikely given that people still quarantine for diseases like the common flu, albeit to a lesser degree.) Working backwards, we see that the average length of a simulation is around 150 days from our previous batch of simulations. Suppose at the end of the simulation that we want an average of 1 out of every 3 infected nodes to be quarantined every day. Then, the growth rate is 0.001889. We run 1000 simulations with these parameters: <i>N = 10,000</i>, <i>p<sub>inf</sub> = 0.20</i>, <i> p<sub>o</sub> = 0.05 </i>, alpha = 0.001889). As a baseline, we compare these results to 1000 simulations using a constant <i>p<sub>iso</sub></i> of 0.15 and the same <i>p<sub>inf</sub></i>. We can compare these two sets of data since the mean healthy survival rate for the linear <i>p<sub>iso</sub></i> is 9.34% while for the constant <i>p<sub>iso</sub></i> it is 9.29% (excluding data points that did not cross threshhold <i>t</i>).</p>
         <p class="text">There are two interesting differences that are noticeable from a surface-level analysis of the data sets. First, the standard deviation for the constant <i>p<sub>iso</sub></i> is 0.87% while for the linear <i>p<sub>iso</sub></i> it is 1.94%. Given that both means are sufficiently similar and the size of the data sets is sufficiently large, this difference between the two SDs can not be attributed to randomness alone and suggests that there is significantly more variation in the end result when <i>p<sub>iso</sub></i> is originally small and grows than when <i>p<sub>iso</sub></i> remains constant throughout. The second difference is in the number of contained simulations. When <i>p<sub>iso</sub></i> was held constant, there were 107 contained simulations compared to just 41 when <i>p<sub>iso</sub></i> is a linear function of time. This could be due to the poor containment caused by low values of <i>p<sub>iso</sub>(t)</i> when <i>t</i> is small. With this new piece of information here's what we hypothesize about this "containment threshold": </p>
@@ -148,12 +148,12 @@
         <p class="text">
             For our final batch of simulations, I'm interested in replicating the concept of "contact tracing", the strategy used to mitigate network spread by not only putting infected nodes in quarantine, but testing nodes with connected edges to see if they are infected and placing them in quarantine if they are. We employ a different sort of contact tracing in our simulation wherein we bypass testing and simply place all known connections in quarantine. The reason we do so is two-fold. For one, testing could take almost a week to get results back, meaning that quarantine at that point is significantly less effective. And second, in many regions of the world testing for COVID-19 was in short supply especially in the earlier stages of the epidemic, thus it would be unrealistic to test all known connections of every single isolated node. The reason I say "known connections" is because contact tracing isn't perfect, and there are bound to be interactions with people that have been unaccounted for or people that can't be reached by public health officials. Thus, we need to implement a new variable <i>p<sub>con</sub></i> which represents the probability of isolating a contact of an isolated node. Of course, a virus must first be discovered to begin contact tracing. In the case of COVID-19 this timeline remains unknown, but patient zero is suspected to have been infected on November 17th, 40 days before the virus had been discovered as novel. This value could be quite inaccurate but I can't think of a better way to determine at what stage of our simulation should be begin contact tracing. We run a simulation with linear <i>p<sub>iso</sub></i> where <i>p<sub>con</sub></i> begins taking effect after day 40 (<i>N = 10000</i>, <i>p<sub>o</sub> = 0.05</i>, <i>α = 0.0018889</i>, <i>p<sub>inf</sub> = 0.20</i>, <i>p<sub>con</sub></i> = 0.8). Here is a graph of one simulation:
             <div class="project_image">
-            <img src="pics/proj1/tracingSimulation.PNG" id="tracingSimulation"/>
+            <img src="../../pics/proj1/tracingSimulation.PNG" id="tracingSimulation"/>
             </div>
             <p class="text">
             With just this graph, it's difficult to see how adding contact tracing and a linear <i>p<sub>iso</sub></i> changes the distribution of states, so I went ahead and overlayed this graph onto the earlier graph we made for constant <i>p<sub>iso</sub></i>: </p>
             <div class="project_image">
-            <img src="pics/proj1/overlay.PNG" id="overlay"/>
+            <img src="../../pics/proj1/overlay.PNG" id="overlay"/>
             </div>
         <p class="text"> Both graphs start off with nearly identical curves and for the first 40 or so days, they look like horizontal translations of one another. After around day 40, when the contact tracing comes into effect there is a noticeable flattening of the curve for this simulation. Another noticeable difference is that the tail end of infected cases is significantly shorter in this simulation versus the earlier one, presumably due to better quarantining procedures (higher <i>p<sub>iso</sub></i> and contact quarantining). Another interesting difference is that the virus lasted for only 107 days which is significantly shorter than any previous simulation I have done. Viruses with both constant and linear <i>p<sub>iso</sub></i> lasted for at least 130 days up to 160 days, so it appears that contact tracing is important in reducing virus length. I ran this exact same simulation 1000 times as I did with the other simulation batches. The number of contained simulations was 61, which is larger than the number of contained simulations without contact tracing but more data is required to make a conclusion whether this can be attributed to chance or not. The more interesting results are with the healthy survival rates. Ignoring the contained simulations, the average healthy survival rate is 26.45%, which is much greater than the average survival rate without contact tracing which was 9.34%. This makes sense: contact tracing increases the number of quarantined nodes which increases decreases the number of edges and reduces pathways for possible infection. What is more surprising, however, is that the standard deviation of healthy survival rates is 10.57%, which is much higher than the 1.94% without contact tracing and 0.87% without contact tracing and with constant <i>p<sub>iso</sub></i>. Even after normalization, the standard deviation for the healthy survival rates of this simulation is around 3.72%, which is a non-trivial difference. </p>
         <p class="text">We have seen this trend of increased variation now in both the linearization of <i>p<sub>iso</sub></i> and adding the contact tracing, both of which place the weight of quarantining to the latter parts of the disease (the former by increasing <i>p<sub>iso</sub></i> as a function of time and the latter by imposing the 40-day delay on contact tracing). Could this delay in quarantining increase variation? The idea seems counterintuitive. Isolation earlier should vause greater variation as a single quarantine could decide the fate of hundreds of nodes down the line. This is indeed true. Quarantining earlier causes much greater variation, so great in fact that it splits the distribution of healthy survival rates in two categories: successful propagation and containment. Isolation later on causes variation, but to a lesser degree and only targets simulations that have crossed the containment threshold. This is why when we exclude contained simulations, it appears as if the variation is higher when we delay quarantining. </p>

@@ -10,7 +10,7 @@
   gtag('config', 'UA-167856456-1');
 </script>
 <title> Supervised Learning to Predict NBA Free Throw Accuracy </title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../..style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
@@ -19,10 +19,10 @@
     <div id="menu">
         <nav id="Main Menu" role="navigation">
             <ul id = "navigation_list">
-				<li id="about_me"><a href="index.html"  id="about_link">About me</a></li>
-                <li id="projects"><a href="projects.html" class="active" id="projects_link">Projects</a></li>
-                <li id="teaching"><a href="teaching.html" id="teaching_link">Teaching</a></li>
-                <li id="blog"><a href="blog.html" id="blog_link">Blog</a></li>
+				<li id="about_me"><a href="../index.html"  id="about_link">About me</a></li>
+                <li id="projects"><a href="../projects.html" class="active" id="projects_link">Projects</a></li>
+                <li id="teaching"><a href="../teaching.html" id="teaching_link">Teaching</a></li>
+                <li id="blog"><a href="../blog.html" id="blog_link">Blog</a></li>
             </ul>
         </nav>
     </div>
@@ -30,7 +30,7 @@
         <hr>
     <section id="main">
         <p class="project_title"> Supervised Learning to Predict NBA Free Throw Accuracy </p>
-        <div class="icon"><a href=https://github.com/Aekus/NBAFreeThrowAnalysis><img src="pics/githubwidget.svg" id="github_link"/> </a> </div>
+        <div class="icon"><a href=https://github.com/Aekus/NBAFreeThrowAnalysis><img src="../../pics/githubwidget.svg" id="github_link"/> </a> </div>
         <p class="project_subheader"> Introduction </p>
         <p class="text"> One of the most important, and often overlooked, plays in basketball is the free throw shot. It is the single most consistent and efficient shot in the game other than wide open dunks and layups. In the truncated 2019-2020 season, the worst shooting team (New York Knicks) shot 69.4% from the free throw line, meaning that the average 2 point foul yielded roughly 1.39 points per possession while the best 3 point shooting team shot 38.3% from the 3 point line converting at roughly 1.15 points per possession. When the game comes down to the line (pun intended), then, fouling becomes a strategic weapon. Teams look to foul poor free throw shooters on the opponent team and put the ball in the hands of their own best. Fouling is also a tactic used by teams to extend the number of possessions in a game when they are down since a foul stops gameplay. Evidently, predicting free throw accuracy is thus a useful analytic. Are certain players more susceptible to pressure and perform worse when the game is close? Do others thrive in certain types of free throws (technical free throws, and-1s, 3-point fouls)? To answer these questions, I analyzed a <a href="https://www.kaggle.com/sebastianmantey/nba-free-throws" class="in-text_link"> kaggle </a> dataset that consisted of over 600,000 free throw shots from 2006 to 2016 to see what variables influence free throw percentage the most. </p>
 
@@ -46,19 +46,19 @@
         In order to determine the success of our predictions, I compared the model’s predictions to the average free throw percentage. For every made shot, I added the predicted percentage and for every missed shot I subtracted the predicted percentage. Then, I divided by the average predicted percentage to normalize the results and divided by what the free throw percentage was to determine the ratio of predicted accuracy to raw free throw percentage. A ratio greater than 1 would mean that our free throw percentage predictions are more accurate than raw free throw percentage, while the converse suggests the opposite. I analyzed 6 different combinations of variables on trials of 5000 testing entries; a table of results is below.
         </p>
         <div class="project_image">
-        <img src="pics/proj2/results_table.PNG" id="proj2_table"/>
+        <img src="../../pics/proj2/results_table.PNG" id="proj2_table"/>
         </div>
         <p class="text">
         The most accurate predictions were generated when I plotted the point difference versus the time left in the quarter. I visualized the plots using matplotlib and found them to be appealing to the eye, so here are a few examples:
         </p>
         <div class="project_image">
-        <img src="pics/proj2/CodyZeller.PNG" id="codyzeller"/>
-        <img src="pics/proj2/RayAllen.PNG" id="rayallen"/>
-        <img src="pics/proj2/LeBronJames.PNG" id="lebronjames"/>
+        <img src="../../pics/proj2/CodyZeller.PNG" id="codyzeller"/>
+        <img src="../../pics/proj2/RayAllen.PNG" id="rayallen"/>
+        <img src="../../pics/proj2/LeBronJames.PNG" id="lebronjames"/>
         </div>
         <p class="text"> I was also interested in seeing how the accuracy score that we calculated changed as the number of testing entries increased so I graphed the score versus log iterations.</p>
         <div class="project_image">
-        <img src="pics/proj2/graph.PNG" id="proj2graph">
+        <img src="../../pics/proj2/graph.PNG" id="proj2graph">
         </div>
         <p class="text"> P.S. I originally called the model K.O.B.E (<b>K</b> nearest neighbor <b>O</b>ptimized <b>B</b>inary <b>E</b>stimator), after legend Kobe Bryant, but this was very clearly a stretch (I'm not quite sure what the binary even means in this context and K.O.E won't catch on with the masses).</p>
     </section>
