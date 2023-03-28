@@ -141,7 +141,33 @@
       </p>
       <p class="project_subheader"> Relative Ranking in the Jelly Bean Game </p>
       <p class="text">
-      The next line of questioning is where does our sample mean rank amongst the other guesses. Can we almost surely be, for any value of $0 < q \leq 100$, in the top $q$ percentile for sufficiently large $n$? Can we be in the top $O(n^{-r})$ percentile for some value of $r > 0$?  
+      The next line of questioning is where does our sample mean rank $R$ amongst the other guesses. Can we almost surely be, for any value of $0 < q \leq 100$, in the top $q$ percentile for sufficiently large $n$? Can we be in the top $O(n^{-r})$ percentile for some value of $r > 0$? Empirically sampling the distribution of $R$ given $n = 100$ shows us that the distribution of rank looks roughly half-normal with mean rank $7.28$
+      </p>
+      <div class="project_image">
+        <img id="prob_winning_gaussian_d_1" src="../../pics/blog5/rank_distribution_d_1.png"/>
+      </div>
+      <p class="text">
+      We can sample the rank distribution for various values of $n$ to view $\mathbb E[R]$ as a function of $n$. Here it is plotted alongside the function $f(n) = 0.64 \sqrt{n}$
+      </p>
+      <div class="project_image">
+        <img id="prob_winning_gaussian_d_1" src="../../pics/blog5/expected_rank_d_1.png"/>
+      </div>
+      <p class="text">
+      It seems clear that your expected rank in the jellybean contest if you submit the sample mean is $O(\sqrt{n})$. This means, in particular, that as $n \to \infty$, you can almost surely be in the top $q$ percentile for any $q > 0$. A proof of this follows from markov's inequality:
+      \[\begin{aligned}
+      \lim_{n \to \infty} \mathbb P[R \geq qn] &\leq \lim_{n \to \infty} \frac{\mathbb E[R]}{qn} \\
+      &= \lim_{n \to \infty} \frac{1}{q} O(n^{-1/2}) \\
+      &= 0
+      \end{aligned}
+      \]
+      Which implies that $\lim_{n \to \infty} \mathbb P[R \leq qn] = 1$
+      A stronger result is that for any $r < 0.5$, you can almost surely be in the top $O(n^{-r})$ percentile, the proof of which follows identically:
+      \[\begin{aligned}
+      \lim_{n \to \infty} \mathbb P[R \geq O(n^{-r})n] &\leq \lim_{n \to \infty} \frac{\mathbb E[R]}{qn} \\
+      &= \lim_{n \to \infty} \frac{1}{q} O(n^{r-1/2}) \\
+      &= 0
+      \end{aligned}
+      \]
       </p>
     </section>
 
