@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167856456-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167856456-1');
+</script>
+<title> Are the Crowds Truly Wise? </title>
+<link rel="stylesheet" href="../../style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js" integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true},
+              {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+              {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+              {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
+    });
+</script>
+</head>
+<body>
+    <div id = "page">
+    <section id="header">
+    <div id="menu">
+        <nav id="Main Menu" role="navigation">
+            <ul id = "navigation_list">
+				        <li id="about_me"><a href="../../index.html"  id="about_link">About me</a></li>
+                <li id="projects"><a href="../projects.html" id="projects_link">Projects</a></li>
+                <li id="teaching"><a href="../teaching.html"  id="teaching_link">Teaching</a></li>
+                <li id="blog"><a href="../blog.html" class="active" id="blog_link">Blog</a></li>
+            </ul>
+        </nav>
+    </div>
+    </section>
+        <hr>
+    <section id="main">
+      <h1 class="blog_title"> Are the Crowds Truly Wise? </h1>
+
+      <p class="text">
+      James Surowiecki opens "The Wisdom of Crowds", a frequently cited book in economics and psychology, with an anecdote about a scientist in the early 20th century named Francis Galton. Francis (I'll use his first name because using last names to invoke 'formality' always felt a little bit weird) participated in a Ox-weighing contests where participants had to estimate the weight of an Ox put on display. The winners would be those with the closest guesses.
+      </p>
+      <p class="text">
+      Francis noted that the 800 participants included "a diverse bunch" and suspected that rather than trust any particular individual, the average guesser was probably the best. So he collected the guesses after the contest was over and noted that the distribution of guesses followed a bell curve. More importantly, he noted that the mean weight (1,197 pounds) was almost exactly the true weight (1,198 pounds). Now, we don't know if Francis would have won had he submitted this guess, but I suspect he would have done quite well. This guess would certainly have been closer than most 'experts' -- farmers, animal handlers, etc. -- were individually, despite the sample containing many uninformed people. What Francis discovered is that errors are often symmetric (an individual is roughly equally likely to overestimate a quantity as underestimate it, and by roughly equal magnitudes).
+      </p>
+      <p class="text">
+      By averaging data in some way, we can de-noise it by cancelling out the overestimators with the underestimators. If we use the mean, we're suggesting that the total amount people overestimate by is roughly equivalent to the total amount people underestimate by. If we use median, we're suggesting that the number of overestimators is roughly equal to the number of underestimators.
+      </p>
+      <p class="text">
+      This problem shows up whenever you are estimating an unknown quantity have access to other estimates. Financial markets, sports betting, political polling, and that "guess the number of jelly beans in a jar" game you've probably played at some point. So, how wise are the crowds? If you were to walk up to the jelly bean jar and pay no attention to the jar itself, but instead look at the little sheet in front of it with everyone's guesses and average them, how likely are you to win the contest?
+      </p>
+      <p class="project_subheader"> The Jelly Bean Game </p>
+      <p class="text">
+      The phenomenon that Francis noted -- that random quantities in nature usually lie on a bell curve (a normal distribution) -- is now fairly accepted. The reason why is that many random quantities can be constructed as a sum of other smaller random quantities. If we assume that there are enough of these smaller random quantities, that they are independent from one another, and that they are distributed along the same distribution (which, granted, is a lot of assumptions), the Central Limit Theorem (a personal top 3 most beautiful result) states that the original random quantity will follow a (roughly) normal distribution.
+      <p class="text">
+      In the case of our jelly bean guessing game, we might believe that someone's guess is a average of scores assigned to: (1) how big they assume jelly beans are, (2) how big they believe jars are, (3) how tightly jelly beans can pack in space. Now, if we assume that these scores are fairly independent of one another and distributed similarly, we could reasonably believe that people's guess for jelly beans follows a normal distribution. To get over the problem of needing a large number of these quantities, we can make the simplifying assumption that these scores are themselves averages of tinier independent and identically distributed random quantities.
+      </p>
+      <p class="text">
+      So now that we've somewhat motivated why a normal distribution is appropriate for our jelly bean estimates, let's get back to the task at hand by formalizing our notion of what it means to 'win' this game.
+      </p>
+      <p class="text">
+      Suppose there are $n$ players in this game and let $X_i$ represent the $i$-th player's guess of the jelly bean count. $X_i$ are distributed i.i.d. as a normal distribution with mean $\mu$, which is the true jelly bean count, and some variance $\sigma^2$, written $X_i \overset{\text{i.i.d}}{\sim} \mathcal N(\mu, \sigma^2)$. Let $\overline{X}$ be the mean guess, which is distributed $\overline{X} \sim \mathcal N(\mu, \sigma^2/n)$. We win if our sample mean is closer to the true mean than any of the samples. That is, if
+      \[
+          |\overline{X} - \mu| < \min_{i} |X_i - \mu|
+      \]
+      if we consider the linear transformation of these random variables
+      \[
+          Y = f(X) = \frac{X - \mu}{\sigma}
+      \]
+      Then our original condition becomes
+      \[
+          \begin{aligned}
+          \theta \Big |\frac{f(X_1) + f(X_2) + \ldots + f(X_n) }{n} \Big | &< \theta \min_{i} |f(X_i)| \\
+          &\iff \\
+          |\overline{Y}| &< \min_{i} |Y_i|
+          \end{aligned}
+      \]
+      With $\overline{Y}$ being the sample mean of $Y_i$ for $1 \leq i \leq n$. Since $Y_i \overset{\text{i.i.d}}{\sim} \mathcal N(0, 1)$ and $\overline{Y} \sim \mathcal N(0, \frac{1}{n})$, it makes sense to deal with these standardized variables. We might also be interested in our ranking $R$ if we submit the sample mean for this contest where
+      \[
+          R = k \iff |Y|_{(k-1)} < |\overline{Y}| < |Y|_{(k)}
+      \]
+      Where $|Y|_{(k)}$ denotes the $k$-th order statistic of $\{|Y_i|\}_{i=1}^{n}$. With the notation out of the way, my first question is what is the probability we win this game. In particular, what happens asymptotically as $n \to \infty$?
+      </p>
+      <p class="project_subheader"> Probability of Winning the Jelly Bean Game </p>
+      <p class="text">
+      There are a couple equivalent ways to representing winning:
+      \[
+        \mathbb P[\text{we win}] = \mathbb P[R = 1] = \mathbb P[|\overline{Y}| < \min_{i} |Y_i|]
+      \]
+      Since we don't have an expression for the distribution of $R$ itself, we will use the last expression.
+      \[
+        \begin{aligned}
+        \mathbb P[|\overline{Y}| < \min_{i} |Y_i|] &= \int_{-\infty}^{\infty} \mathbb P[\min_{i} |Y_i| > |y| | \overline{Y} = y ]f_{\overline{Y}}(y)~ dy \\
+        &\overset{n \to \infty}{=} \int_{-\infty}^{\infty} P[\min_{i} |Y_i| > |y|] f_{\overline{Y}}(y)~ dy \\
+        \end{aligned}
+      \]
+      Here we made use of the fact that the dependence of any one sample (such as the minimum) on the sample mean decreases to $0$ as $n \to \infty$. We won't formally prove why this is true, but intuitively it makes sense since the sample mean is influenced less by a change in any one sample as the number of samples increases. Now, since the CDF of a normal distribution doesn't have a nice closed form expression we can integrate over, we seek to instead bound $\mathbb P[\min_{i} |Y_i| \geq y]$ with a concentration inequality.
+      \[
+        \begin{aligned}
+        \mathbb P[\min_{i} |Y_i| \geq y] &= (\mathbb P[|Y_i| > y])^n \\
+        &\leq e^{-ny^2/2}
+        \end{aligned}
+      \]
+      This bound comes from tranforming the gaussian to an exponential (for which the cdf is natural) by summing two i.i.d. chi-square distributions. Hence, we have the upper bound
+      \[
+        \begin{aligned}
+        \lim_{n \to \infty} \mathbb P[|\overline{Y}| < \min_{i} |Y_i|] &\leq \lim_{n \to \infty} \int_{-\infty}^{\infty} e^{-ny^2/2} \frac{\sqrt{n}}{\sqrt{2\pi}} e^{-ny^2/2}  dy \\
+        &= \lim_{n \to \infty} \int_{-\infty}^{\infty} \frac{\sqrt{n}}{\sqrt{2\pi}} e^{-ny^2}  dy \\
+        &= \frac{1}{\sqrt{2}}
+        \end{aligned}
+      \]
+      Now, this is an interesting upper bound because it proves that asymptotically we can't guarantee a win. As the number of participants increase, our sample mean becomes better, but we also end up competing against more participants. So this problem asks whether our sample mean converges in probability to $\mu$ faster than the best guess of all the participants. Our result proves the rate of convergence for the best guess is at least as fast. But the question remains, is it faster?
+      </p>
+      <p class="text">
+      Instead of trying to find a good lower bound to the probability of winning, we can test our hypothesis empirically. For different values of $n$, we can run $T$ trials where we generate $n$ samples from a Standard Gaussian distribution and find the proportion of trials in which the absolute sample mean is a better estimator of the true mean than the minimum absolute sample. Plotting this proportion we have
+      </p>
+      <div class="project_image">
+        <img id="prob_winning_gaussian_d_1" src="../../pics/blog5/prob_winning_d_1.png"/>
+      </div>
+      <p class="text">
+      It seems pretty convincing then that the probability of winning actually converges to 0 as $n \to \infty$ so the rate at which the best guess converges is faster than the rate at which the sample mean converges to the true mean.
+      </p>
+      <p class="project_subheader"> Relative Ranking in the Jelly Bean Game </p>
+      <p class="text">
+      The next line of questioning is where does our sample mean rank amongst the other guesses. Can we almost surely be, for any value of $0 < q \leq 100$, in the top $q$ percentile for sufficiently large $n$? Can we be in the top $O(n^{-r})$ percentile for some value of $r > 0$?  
+      </p>
+    </section>
+
+    </div>
+    </body>
+</html>
