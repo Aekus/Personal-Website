@@ -160,7 +160,7 @@
       &= 0
       \end{aligned}
       \]
-      Which implies that $\lim_{n \to \infty} \mathbb P[R \leq qn] = 1$
+      Which implies that $\lim_{n \to \infty} \mathbb P[R \leq qn] = 1$.s
       A stronger result is that for any $r < 0.5$, you can almost surely be in the top $O(n^{-r})$ percentile, the proof of which follows identically:
       \[\begin{aligned}
       \lim_{n \to \infty} \mathbb P[R \geq O(n^{-r})n] &\leq \lim_{n \to \infty} \frac{\mathbb E[R]}{qn} \\
@@ -169,6 +169,64 @@
       \end{aligned}
       \]
       </p>
+      <p class="project_subheader"> Higher Dimensional Cases </p>
+      <p class="text"> Something peculiar happens when we consider high dimensional cases. What if participants have to submit multiple guesses? Suppose that in addition to guessing the number of jelly beans in a jar, they have to submit a guess for the combined total number of pets owned by everyone at the school. It is reasonable to assume that people's guesses for these are fairly independent (i.e. if you told me someone guessed that there are $x$ jelly beans, it gives me little information about how many pets they guessed). We can then model the joint distribution of guesses for each participant
+
+      \[ \begin{aligned}
+      X_i \overset{\text{i.i.d}}{\sim} \mathcal N(\mu, \Sigma) = \mathcal N(\begin{bmatrix} \mu_1 \\ \mu_2 \end{bmatrix}, \begin{bmatrix} \sigma_1^2 & 0 \\ 0 & \sigma_2^2 \end{bmatrix})
+      \end{aligned}
+      \]
+      Here, $\mu$ is now a vector in $\mathbb R^2$ and $\Sigma$ is a matrix in $R^{2\times 2}$. $\mu$ has components $\mu_1$ and $\mu_2$ where $\mu_1$ is the true number of jelly beans and $\mu_2$ is the true number of pets. $\Sigma$ is a diagonal covariance matrix (since we are assuming independence) in $\mathbb R^{2 \times 2}$ with diagonal components $\sigma_1^2$, the variance associated with the jelly bean guesses, and $\sigma_2^2$, the variance associated with the pet guesses. Then, for some distance metric $d : \mathbb R^2 \times \mathbb R^2 \to \mathbb R$, the sample mean wins if:
+      \[\begin{aligned}
+        d(\overline{X}, \mu) < \min_{i} d(X_i, \mu)
+        \end{aligned}
+      \]
+      If $d$ is translation invariant, such as in the case where $d$ is an induced metric of a normed vector space $d(x,y) = \|x - y\|$, consider the transformed variable
+      \[
+        Y_i = f(X_i) = \Sigma^{-1}(X_i - \mu)
+      \]
+      Equivalently we win if
+      \[
+        \begin{aligned}
+        &d \Bigg( \Sigma \Big (\sum_{i=1}^{n} \frac{1}{n} Y_i \Big) + \mu , \mu\Bigg) < \min_{i} d(\Sigma Y_i + \mu, \mu) \\
+        \equiv ~& \big \| \Sigma \overline{Y} \big \| < \min_{i} \big \| \Sigma Y_i \big \|
+        \end{aligned}
+      \]
+      In the special case where our variances for each estimate are equal (i.e. $\Sigma = \sigma I$), winning is equivalent to the condition
+      \[
+        \|\overline{Y}\| < \min_{i} \|Y_i\|
+      \]
+      This problem is much nicer to look at because it does not depend on $\mu$ or $\Sigma$ since $Y_i \overset{\text{i.i.d}}{\sim} \mathcal N(0, I)$ and $\overline{Y} \sim \mathcal N(0, 1/n I)$. </p>
+      <p class="text">
+      We will only consider the case where all variances are equal because the case where one estimate is much noisier than the other reduces the problem to the one-dimensional case (intuitively, if one quantity is known, the problem of finding the best guess across two unknown quantities is the same as finding the best guess across one unknown quantity). This method works for any finite number of estimates, with the dimension of our space corresponding to the number of estimates. We have in addition proven in full generality that any norm will be satisfiable. For our purposes, we will only consider the $\ell_2$ norm although I suspect the results will be equivalent (down to some constant factor perhaps) for any $\ell_p$ norm.
+   </p>
+   <p class="text">
+      In what follows, I only have empirical results. The math in higher dimensional cases are almost certainly less tenable to analytic solutions than the one dimensional case. But still, I think the empirical results are fascinating and leave me with a few conjectures I will list at the bottom of this post. To begin win, let's look at the probability of winning the game in the case of the two-dimensional and three-dimensional game.
+   </p>
+   <div class="project_image">
+     <img id="prob_winning_gaussian_d_1" src="../../pics/blog5/prob_winning_all_d.png"/>
+   </div>
+   <p class="text">
+   Our empirical measure of the true probability is noisy since we're estimating it 1000 samples. Without proving so statistically, this graph seems to suggest that the true probability of winning does not depend on $n$ and is a constant 0.5. This is rather striking as it suggests that playing the game with two independent equal-variance estimates gives you a probability of winning equivalent to flipping a coin, and your decision to participate should be independent of the number of other participants. As you might expect then, in the three-dimensional case, the probability of winning converges to 1 as $n \to \infty$. It would seem that two dimensions is the tipping point, below which we asymptotically expect to lose and above which we can asymptotically expect to win. What is most interesting is that the tipping point lies exactly at the two-dimensional case, where we have a non-zero probability of both winning and losing. The next course of action is to analyze the expected relative ranking in the game as a function of $n$.
+   </p>
+   <p class="text">
+   </p>
+   <div class="project_image">
+     <img id="prob_winning_gaussian_d_1" src="../../pics/blog5/expected_rank_all_d.png"/>
+   </div>
+   <p class="text">
+    For $d=2$, as will our probability of winning, our expected rank doesn't depend on the number of people playing. Which is a bit counterintuitive since that means we are on average ~2.6th place regardless of how many contestants there are. For $d = 3$, not only do we probabilistically converge to winning, but in expectation our rank also converges to $1$, which follows our intuition since we don't expect the variance to grow too fast.
+    </p>
+    <p class="project_subheader"> Conjectures </p>
+    <p class="text">
+      For the things I was only able to study empirically, I have some analytical hypotheses that I would conjecture extend to even higher dimensions:
+    </p>
+    <p class="text">
+      <ol>
+        <li> <p class="text"> The rank distribution in the $d=1$ case approaches a discretized half-normal distribution as $n \to \infty$. That is, on a support of $[0, \infty)$, $\mathbb P[R = k] \propto e^{-ck^2}$ where $c$ could depend on $n$. For higher dimensions, I believe the distribution is subgaussian where $\mathbb P[R = k] \propto e^{-ck^{2/d}}$. In particular, this suggests the distribution for $d=2$ is geometric. </p>  </li>
+        <li> <p class="text"> The asymptotic mean rank for the $d=1$ case is $O(\sqrt{n})$. For arbitrary dimension, the asymptotic mean rank is $O(n^{1-d/2)})  </p>
+      </ol>
+    </p>
     </section>
 
     </div>
